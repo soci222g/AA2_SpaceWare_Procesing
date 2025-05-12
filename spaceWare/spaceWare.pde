@@ -3,7 +3,7 @@ Player player;
 
 
 void setup(){
-size (200,200);
+size (800,800);
 player = new Player(100,100);
 
 }
@@ -13,7 +13,7 @@ player = new Player(100,100);
 void draw(){
   background(0);
   
-  player.printPlayer();
+  player.AddForWard();
   
   
 }
