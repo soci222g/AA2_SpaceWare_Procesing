@@ -25,13 +25,9 @@ class Player {
    Max_rotation_Speed = MaxRotationSpeed;
     
   } 
-   
-    void printPlayer(){
-      
-      ellipse(PosX, PosY, 20,20); //en vase que mide 10
-    }
+
     //no hacer un triangulo sino un circulo con un cubo que indique a donde esta mirando.
-    void AddForWard(){
+    void PrintPlayer(){
       pushMatrix();
       
        translate(PosX,PosY);
@@ -40,6 +36,7 @@ class Player {
       
         pushMatrix();
         
+        //debujar al jugador (qui le pasa la imagen)
           fill(0,0,255);
           rectMode(CENTER);
           square(0, 0, 25);
@@ -54,7 +51,7 @@ class Player {
      
       
       
-      // pillar la nueva posicipon del player aqui (en X i en Y)
+      
     }
 
   void addSpeed(){
@@ -82,31 +79,36 @@ class Player {
   
   void RotateLeft(){
     
-    Current_rotate_speed -= Rotation;
     
      if(Current_rotate_speed > (Max_rotation_Speed * -1)){
-       Current_rotate -= Current_rotate_speed; 
-        print(Current_rotate);
+      Current_rotate_speed -= Rotation;
      }
-   if(Current_rotate <= 0){
+      Current_rotate += Current_rotate_speed; 
+  
+  
+  
+  
+  if(Current_rotate <= 0){
       Current_rotate = 360;
      }
 
-      print(Current_rotate);
+      
   }
   
   void RotateRight(){
     
-    Current_rotate_speed += Rotation;
+ 
     
     if(Current_rotate_speed < Max_rotation_Speed){
-      Current_rotate += Current_rotate_speed;
       
-      if(Current_rotate >= 360){
-      Current_rotate = 0;
-      }
+      Current_rotate_speed += Rotation; 
       
     }
+    
+      Current_rotate += Current_rotate_speed;
+     if(Current_rotate >= 360){
+      Current_rotate = 0;
+      }
    
  
   }
