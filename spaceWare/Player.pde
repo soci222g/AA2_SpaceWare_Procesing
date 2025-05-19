@@ -48,8 +48,8 @@ class Player {
       
       popMatrix();
       
-     
-      
+     //Amb això aqui el player es printeja al moment de canviar d'un costat de la pantalla a l'altre
+      PlayerBorders();
       
       
     }
@@ -115,6 +115,24 @@ class Player {
 
 void stopRotation(){
   Current_rotate_speed = 0;
+}
+
+void PlayerBorders() { // Movimiento del PJ
+ 
+
+    // Reapareixer al creuar els bordes esquerre i dret de la pantalla
+    if (PosX > width) {
+        PosX = 0;
+    } else if (PosX < 0) {
+        PosX = width;
+    }
+
+    // Reapareixer al creuar els bordes de dalt i abaix de la pantalla
+    if (PosY > height) {
+        PosY = 0;
+    } else if (PosY < 0) {
+        PosY = height;
+    }
 }
 
 
