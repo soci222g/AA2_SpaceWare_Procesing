@@ -12,6 +12,11 @@ class Player {
   float max_Speed;
   float current_speed;
   
+  
+  float shootColdown;
+  float currentColdown;
+  
+  
   Player (float x, float y, float speed, float max_S, float Rotate_speed, float MaxRotationSpeed) {  
    PosX = x;
    PosY = y;
@@ -19,14 +24,33 @@ class Player {
    Speed = speed;
    max_Speed = max_S;
    current_speed = 0;
-   
-   Current_rotate = 0;
+
+   //rotation
+   Current_rotate = 270;
    Current_rotate_speed= 0;
    Max_rotation_Speed = MaxRotationSpeed;
     
+    
+    
+    shootColdown = 5;
+    currentColdown = 0;
   } 
-
-    //no hacer un triangulo sino un circulo con un cubo que indique a donde esta mirando.
+  
+  
+//geters
+  float getCurrentRotation(){ return Current_rotate; }
+  float getCurrentPositionX(){ return PosX;}
+  float getCurrentPositionY(){ return PosY;}
+  
+  
+  
+  float Get_Current_Speed(){   return current_speed;}
+  
+  float Get_ShootColdown(){ return currentColdown;}
+  
+  
+  
+  //print
     void PrintPlayer(){
       pushMatrix();
       
@@ -72,8 +96,14 @@ class Player {
      
 
   }
+  void activateColldown(){ currentColdown = shootColdown; }
   
-  
+  //shoot coldown
+  void ColldownShoot(){
+      if(currentColdown >= 0){
+          currentColdown -= 0.1;
+      }
+  }
   
   //rotation
   
@@ -120,34 +150,25 @@ void stopRotation(){
 void PlayerBorders() { // Movimiento del PJ
  
 
-    // Reapareixer al creuar els bordes esquerre i dret de la pantalla
-    if (PosX > width) {
-        PosX = 0;
-    } else if (PosX < 0) {
-        PosX = width;
+    // Reapareixer al creuar els bordes esquerre i dret de la pantalla augmantem una mica el valor perque no es fagi tp en el centra de la imatge sino al final
+    if (PosX > width + 10) {
+        PosX = -10;
+    } else if (PosX < -10) {
+        PosX = width + 10;
     }
 
-    // Reapareixer al creuar els bordes de dalt i abaix de la pantalla
-    if (PosY > height) {
-        PosY = 0;
-    } else if (PosY < 0) {
-        PosY = height;
+    // Reapareixer al creuar els bordes de dalt i abaix de la pantalla augmantem una mica el valor perque no es fagi tp en el centra de la imatge sino al final
+    if (PosY > height + 10) {
+        PosY = -10;
+    } else if (PosY < -10) {
+        PosY = height + 10;
     }
 }
 
 
 
 
-//geters
-  float getCurrentRotation(){
 
-    return Current_rotate;
-}
-
-  
-  float Get_Current_Speed(){
-   return current_speed;
-  }
   
 
 }
