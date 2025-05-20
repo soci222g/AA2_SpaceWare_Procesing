@@ -59,8 +59,11 @@ void inputShootPlayer1(){
       player1.activateColldown();
     }
     
+          //AIXÒ ESTA AQUI PER PROVAR QUE FUNCIONA
+          p1Score.AddPlayerScore();
    
   }
+
 }
 
 

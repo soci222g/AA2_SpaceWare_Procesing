@@ -1,0 +1,12 @@
+class Score {
+  int playerScore = 0;
+  //int p1Score = 0;
+  //int p2Score = 0;
+  
+  
+  void AddPlayerScore(){
+      playerScore += 100;
+      
+     println("Puntos actuales: " + playerScore);
+  }
+}
