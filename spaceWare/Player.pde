@@ -1,12 +1,14 @@
 class Player { 
   float PosX;
   float PosY;
+  int squareLenght;
   
   //rotate
   float Rotation;
   float Current_rotate;
   float Current_rotate_speed;
   float Max_rotation_Speed;
+  
   //speed
   float Speed;
   float max_Speed;
@@ -16,6 +18,10 @@ class Player {
   float shootColdown;
   float currentColdown;
   
+  int timerPowerUp;
+  float currentTimePowerUp;
+  
+  boolean tripleShotActive;
   
   Player (float x, float y, float speed, float max_S, float Rotate_speed, float MaxRotationSpeed) {  
    PosX = x;
@@ -29,11 +35,18 @@ class Player {
    Current_rotate = 270;
    Current_rotate_speed= 0;
    Max_rotation_Speed = MaxRotationSpeed;
+   squareLenght = 25;
     
     
+   tripleShotActive = false;
     
-    shootColdown = 5;
+    shootColdown = 10;
     currentColdown = 0;
+    
+    tripleShotActive = false;
+    
+    timerPowerUp = 10;
+    currentTimePowerUp = 0;
   } 
   
   
@@ -41,13 +54,14 @@ class Player {
   float getCurrentRotation(){ return Current_rotate; }
   float getCurrentPositionX(){ return PosX;}
   float getCurrentPositionY(){ return PosY;}
-  
+  int getSquareLenght() { return squareLenght;}
   
   
   float Get_Current_Speed(){   return current_speed;}
   
   float Get_ShootColdown(){ return currentColdown;}
   
+  boolean GetTripleShoot(){ return tripleShotActive;}
   
   
   //print
@@ -63,7 +77,7 @@ class Player {
         //debujar al jugador (qui le pasa la imagen)
           fill(0,0,255);
           rectMode(CENTER);
-          square(0, 0, 25);
+          square(0, 0, squareLenght);
         
         PosX = modelX(0,0,0);
         PosY = modelY(0,0,0);
@@ -100,8 +114,9 @@ class Player {
   
   //shoot coldown
   void ColldownShoot(){
+    
       if(currentColdown >= 0){
-          currentColdown -= 0.1;
+          currentColdown -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
       }
   }
   
@@ -132,7 +147,6 @@ class Player {
     if(Current_rotate_speed < Max_rotation_Speed){
       
       Current_rotate_speed += Rotation; 
-      
     }
     
       Current_rotate += Current_rotate_speed;
@@ -166,8 +180,21 @@ void PlayerBorders() { // Movimiento del PJ
 }
 
 
+  void activate_powerUp(int NumPower){
+    if(NumPower == 0){
+      tripleShotActive = true;
+      currentTimePowerUp = timerPowerUp;
+    }
+  }
 
-
+void TimerTripleShoot(){
+        if(tripleShotActive){
+          if(currentTimePowerUp > 0){
+            currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
+          }
+          
+        }
+}
 
   
 

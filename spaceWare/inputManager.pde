@@ -27,7 +27,7 @@ void inputForwardP1() {
     player1.addSpeed();
   } else {
     player1.ReduceSpeed();
-    player1.stopRotation();
+    
   }
     
 
@@ -40,6 +40,9 @@ void inputRotateP1() {
       player1.RotateRight();
     }
 
+     if(!keys['A'] && !keys['D']){
+     player1.stopRotation();
+  }
 }
 
 
@@ -60,7 +63,7 @@ void inputForwardP2() {
       player2.addSpeed();
     } else {
       player2.ReduceSpeed();
-      player2.stopRotation();
+     
     }
 
 }
@@ -71,6 +74,7 @@ void inputRotateP2() {
   if (keys[RIGHT]) {
     player2.RotateRight();
   }
+ 
 
 }
 
