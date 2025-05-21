@@ -9,13 +9,16 @@ Score p2Score;
 
 ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
 
+PImage naveImg;
 
 void setup(){
 size (800,800, P3D);
-player1 = new Player(200,400,0.01,1,0.1,1);
-player2 = new Player(600,400,0.01,1,0.1,1);
+naveImg = loadImage("nave.png");
+player1 = new Player(200,400,0.01,1,0.1,1, naveImg); //new Player(200,400,0.01,1,0.1,1);
+player2 = new Player(600,400,0.01,1,0.1,1, naveImg); //new Player(600,400,0.01,1,0.1,1);
 p1Score = new Score();
 p2Score = new Score();
+
 }
 
 

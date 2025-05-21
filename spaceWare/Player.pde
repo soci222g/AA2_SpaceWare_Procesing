@@ -23,7 +23,9 @@ class Player {
   
   boolean tripleShotActive;
   
-  Player (float x, float y, float speed, float max_S, float Rotate_speed, float MaxRotationSpeed) {  
+  PImage nave;
+  
+  Player (float x, float y, float speed, float max_S, float Rotate_speed, float MaxRotationSpeed, PImage img) {  
    PosX = x;
    PosY = y;
    Rotation = Rotate_speed;
@@ -37,6 +39,7 @@ class Player {
    Max_rotation_Speed = MaxRotationSpeed;
    squareLenght = 25;
     
+    nave = img;
     
    tripleShotActive = false;
     
@@ -75,9 +78,11 @@ class Player {
         pushMatrix();
         
         //debujar al jugador (qui le pasa la imagen)
-          fill(0,0,255);
-          rectMode(CENTER);
-          square(0, 0, squareLenght);
+          //fill(0,0,255);
+          //rectMode(CENTER);
+          //square(0, 0, squareLenght);
+          imageMode(CENTER);
+          image(nave, 0,0,40,40);
         
         PosX = modelX(0,0,0);
         PosY = modelY(0,0,0);
