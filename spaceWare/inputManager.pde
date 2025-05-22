@@ -49,18 +49,53 @@ void inputRotateP1() {
 void inputShootPlayer1(){
   if (keys[' '] && player1.Get_ShootColdown() <= 0) {
     if(player1.GetTripleShoot()){
-         BulletPJ1.add(new bullet(true, player1.getCurrentPositionX(), player1.getCurrentPositionY(), player1.getCurrentRotation()));
-         BulletPJ1.add(new bullet(true, player1.getCurrentPositionX(), player1.getCurrentPositionY(), player1.getCurrentRotation() + 25));
-         BulletPJ1.add(new bullet(true, player1.getCurrentPositionX(), player1.getCurrentPositionY(), player1.getCurrentRotation() - 25));
+         BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
+         BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() + 25));
+         BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() - 25));
          player1.activateColldown();
     }
+    else if(player1.GetBoomeranShoot()){
+      
+        p1[0] = new PVector(player1.getX(), player1.getY()); // Este es el punto de ctrl P0
+        //trnafomr para setear los puntos en funcion del player
+       print(p1[0].x,",",p1[0].y, " ");
+        pushMatrix();
+      
+           translate(player1.getX(),player1.getY());
+           rotate(radians(player1.getCurrentRotation()));
+           
+           translate(250,-125);
+           
+        p1[1] = new PVector(modelX(0,0,0), modelY(0,0,0));// Y este es el P1
+          popMatrix();
+       print(p1[1].x,",", p1[1].y, " ");
+        
+         pushMatrix();
+      
+           translate(player1.getX(),player1.getY());
+           rotate(radians(player1.getCurrentRotation()));
+           
+           translate(250,125);
+           
+        p1[2] = new PVector(modelX(0,0,0), modelY(0,0,0)); // El P2
+          print(p1[2].x,",", p1[2].y, " ");
+        popMatrix();
+        
+        p1[3] = new PVector(player1.getX(), player1.getY()); //el punto de control final
+        
+           print(p1[3].x,",", p1[3].y, " ");
+         
+         curvaPJ1.add(new curva (p1,true));
+         
+         player1.activateColldown();
+      }
     else{
-      BulletPJ1.add(new bullet(true, player1.getCurrentPositionX(), player1.getCurrentPositionY(), player1.getCurrentRotation()));
-      player1.activateColldown();
+      BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
+       player1.activateColldown();
     }
     
           //AIXÒ ESTA AQUI PER PROVAR QUE FUNCIONA
-          p1Score.AddPlayerScore();
+          //p1Score.AddPlayerScore();
    
   }
 
@@ -95,13 +130,13 @@ void inputRotateP2() {
 void inputShootPlayer2(){
   if (keys[SHIFT] && player2.Get_ShootColdown() <= 0) {
      if(player2.GetTripleShoot()){
-         BulletPJ2.add(new bullet(true, player1.getCurrentPositionX(), player1.getCurrentPositionY(), player1.getCurrentRotation()));
-         BulletPJ2.add(new bullet(true, player1.getCurrentPositionX(), player1.getCurrentPositionY(), player1.getCurrentRotation() + 25));
-         BulletPJ2.add(new bullet(true, player1.getCurrentPositionX(), player1.getCurrentPositionY(), player1.getCurrentRotation() - 25));
+         BulletPJ2.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
+         BulletPJ2.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() + 25));
+         BulletPJ2.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() - 25));
          player2.activateColldown();
     }
     else{
-      BulletPJ2.add(new bullet(true, player1.getCurrentPositionX(), player1.getCurrentPositionY(), player1.getCurrentRotation()));
+      BulletPJ2.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
       player2.activateColldown();
     }
   }
