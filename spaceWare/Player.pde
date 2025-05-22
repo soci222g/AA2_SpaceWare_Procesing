@@ -21,7 +21,9 @@ class Player {
   int timerPowerUp;
   float currentTimePowerUp;
   
+  //powerUpsTrigers
   boolean tripleShotActive;
+  boolean boomeranShoot;
   
   PImage nave;
   
@@ -41,12 +43,13 @@ class Player {
     
     nave = img;
     
-   tripleShotActive = false;
+
     
     shootColdown = 10;
     currentColdown = 0;
     
     tripleShotActive = false;
+    boomeranShoot = false;
     
     timerPowerUp = 10;
     currentTimePowerUp = 0;
@@ -55,8 +58,8 @@ class Player {
   
 //geters
   float getCurrentRotation(){ return Current_rotate; }
-  float getCurrentPositionX(){ return PosX;}
-  float getCurrentPositionY(){ return PosY;}
+  float getX(){ return PosX;}
+  float getY(){ return PosY;}
   int getSquareLenght() { return squareLenght;}
   
   
@@ -65,7 +68,7 @@ class Player {
   float Get_ShootColdown(){ return currentColdown;}
   
   boolean GetTripleShoot(){ return tripleShotActive;}
-  
+  boolean GetBoomeranShoot(){ return boomeranShoot;}
   
   //print
     void PrintPlayer(){
@@ -184,22 +187,37 @@ void PlayerBorders() { // Movimiento del PJ
     }
 }
 
-
+//cuna el player collisona amb un powwer up activals
   void activate_powerUp(int NumPower){
     if(NumPower == 0){
       tripleShotActive = true;
       currentTimePowerUp = timerPowerUp;
 
     }
+    if(NumPower == 1){
+        boomeranShoot = true;
+        currentTimePowerUp = timerPowerUp;
+    }
   }
 
-void TimerTripleShoot(){
+void TimerPowerUps(){
         if(tripleShotActive){
           if(currentTimePowerUp > 0){
             currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
                   LUT_PW(); //Crec que aqui esta bé
           }
+          else{
+              tripleShotActive = false;
+          }
           
+        }
+        else if(boomeranShoot){
+           if(currentTimePowerUp > 0){
+              currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
+            }
+            else{
+                boomeranShoot = false;
+            }  
         }
 }
 

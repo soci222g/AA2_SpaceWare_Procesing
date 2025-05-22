@@ -18,7 +18,7 @@ class PowerUp{
     posY = random(height);
     isActive = true;
     spierRadius = 20;
-    numPowerUp = 0; //poner random qunado programado los otros
+    numPowerUp = 1; //poner random qunado programado los otros
   }
   
   boolean GetIsActive() {return isActive;}
@@ -28,6 +28,10 @@ class PowerUp{
      fill(255,0,0);
      ellipse(posX,posY,spierRadius,spierRadius);
     }
+    else if(numPowerUp == 1){
+      fill(0,255,0);
+       ellipse(posX,posY,spierRadius,spierRadius);
+    }
     
   
   
@@ -36,8 +40,8 @@ class PowerUp{
   void seePlayer1Collide(){
     //player1 (cubo)
     //pillamos la paret
-    float base_position_x_PJ1 = player1.getCurrentPositionX() - player1.getSquareLenght() * 0.5;
-    float base_position_y_PJ1 =  player1.getCurrentPositionY() - player1.getSquareLenght() * 0.5;
+    float base_position_x_PJ1 = player1.getX() - player1.getSquareLenght() * 0.5;
+    float base_position_y_PJ1 =  player1.getY() - player1.getSquareLenght() * 0.5;
     //esfera
     float posPowerX = posX;
     float posPowerY = posY;
@@ -71,8 +75,8 @@ class PowerUp{
   void seePlayer2Collide(){
     //player1 (cubo)
     //pillamos la paret
-    float base_position_x_PJ2 = player2.getCurrentPositionX() - player2.getSquareLenght() * 0.5;
-    float base_position_y_PJ2 =  player2.getCurrentPositionY() - player2.getSquareLenght() * 0.5;
+    float base_position_x_PJ2 = player2.getX() - player2.getSquareLenght() * 0.5;
+    float base_position_y_PJ2 =  player2.getY() - player2.getSquareLenght() * 0.5;
     //esfera
     float posPowerX = posX;
     float posPowerY = posY;

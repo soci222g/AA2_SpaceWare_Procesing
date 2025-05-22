@@ -28,7 +28,8 @@ class bullet{
         
     FlySpeed = 2;
   }
-    boolean GetisActive(){return isActive; }
+//bullets geters
+boolean GetisActive(){return isActive; }
  
   //
   
@@ -58,8 +59,9 @@ class bullet{
       SetCurrentLife();
       
   }
-  //geters
+
   
+//lifetime Bullets  
 void SetCurrentLife(){
   if(currentLifeTime < lifeTime){
       currentLifeTime += 0.1;
@@ -71,8 +73,8 @@ void SetCurrentLife(){
  
   
   
-  
-  void BulletBoard() { // Movimiento del PJ
+  //traspasar els bordes amb la bullet
+  void BulletBoard() { 
  
 
     // Reapareixer al creuar els bordes esquerre i dret de la pantalla augmantem una mica el valor perque no es fagi tp en el centra de la imatge sino al final
