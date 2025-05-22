@@ -111,7 +111,19 @@ void draw(){
     }
   }
   
-  
+    if(curvaPJ2.size() > 0){
+    
+    for(int i = 0; i < curvaPJ2.size(); i++){
+    if(curvaPJ2.get(i).GetActive()){
+      curvaPJ2.get(i).calcular_coefs();
+      curvaPJ2.get(i).calcula_nueva_posicion_Bullet();
+      curvaPJ2.get(i).print_Bullet();
+      }
+      else{
+        curvaPJ2.remove(i);
+      }
+    }
+  }
  GenerateRandomPowerUp();
   
   if(powers.size() > 0){

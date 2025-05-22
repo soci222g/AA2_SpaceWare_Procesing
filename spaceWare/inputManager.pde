@@ -130,13 +130,44 @@ void inputRotateP2() {
 void inputShootPlayer2(){
   if (keys[SHIFT] && player2.Get_ShootColdown() <= 0) {
      if(player2.GetTripleShoot()){
-         BulletPJ2.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
-         BulletPJ2.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() + 25));
-         BulletPJ2.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() - 25));
+         BulletPJ2.add(new bullet(false, player2.getX(), player2.getY(), player2.getCurrentRotation()));
+         BulletPJ2.add(new bullet(false, player2.getX(), player2.getY(), player2.getCurrentRotation() + 25));
+         BulletPJ2.add(new bullet(false, player2.getX(), player2.getY(), player2.getCurrentRotation() - 25));
          player2.activateColldown();
     }
+     else if(player2.GetBoomeranShoot()){
+      
+        p2[0] = new PVector(player2.getX(), player2.getY()); // Este es el punto de ctrl P0
+        //trnafomr para setear los puntos en funcion del player
+        pushMatrix();
+      
+           translate(player2.getX(),player2.getY());
+           rotate(radians(player2.getCurrentRotation()));
+           
+           translate(250,-125);
+           
+        p2[1] = new PVector(modelX(0,0,0), modelY(0,0,0));// Y este es el P1
+          popMatrix();
+        
+         pushMatrix();
+      
+           translate(player2.getX(),player2.getY());
+           rotate(radians(player2.getCurrentRotation()));
+           
+           translate(250,125);
+           
+        p2[2] = new PVector(modelX(0,0,0), modelY(0,0,0)); // El P2
+        popMatrix();
+        
+        p2[3] = new PVector(player2.getX(), player2.getY()); //el punto de control final
+        
+         
+         curvaPJ1.add(new curva (p2,true));
+         
+         player2.activateColldown();
+      }
     else{
-      BulletPJ2.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
+      BulletPJ2.add(new bullet(false, player2.getX(), player2.getY(), player2.getCurrentRotation()));
       player2.activateColldown();
     }
   }
