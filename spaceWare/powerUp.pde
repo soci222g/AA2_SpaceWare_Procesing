@@ -18,7 +18,7 @@ class PowerUp{
     posY = random(height);
     isActive = true;
     spierRadius = 20;
-    numPowerUp = 1; //poner random qunado programado los otros
+    numPowerUp = 0; //poner random qunado programado los otros
   }
   
   boolean GetIsActive() {return isActive;}

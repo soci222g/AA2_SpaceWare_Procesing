@@ -39,7 +39,7 @@ class Player {
    Current_rotate = 270;
    Current_rotate_speed= 0;
    Max_rotation_Speed = MaxRotationSpeed;
-   squareLenght = 25;
+   squareLenght = 40;
     
     nave = img;
     
@@ -70,6 +70,8 @@ class Player {
   boolean GetTripleShoot(){ return tripleShotActive;}
   boolean GetBoomeranShoot(){ return boomeranShoot;}
   
+  int GetSquareLengt(){return squareLenght;}
+  
   //print
     void PrintPlayer(){
       pushMatrix();
@@ -85,7 +87,7 @@ class Player {
           //rectMode(CENTER);
           //square(0, 0, squareLenght);
           imageMode(CENTER);
-          image(nave, 0,0,40,40);
+          image(nave, 0,0,squareLenght,squareLenght);
         
         PosX = modelX(0,0,0);
         PosY = modelY(0,0,0);

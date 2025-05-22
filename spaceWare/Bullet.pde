@@ -14,7 +14,8 @@ class bullet{
   
   int lifeTime;
   float currentLifeTime;
-  
+  int widthBullet;
+  int heightBullet;
   
   
   bullet(boolean playerAsigne, float P_PosX, float P_PosY, float P_Rotation){
@@ -25,7 +26,8 @@ class bullet{
     Rotation = P_Rotation;
     lifeTime = 10;
     currentLifeTime = 0;
-        
+    widthBullet = 5;
+    heightBullet = 15;
     FlySpeed = 2;
   }
 //bullets geters
@@ -45,7 +47,7 @@ boolean GetisActive(){return isActive; }
         //debujar al jugador (qui le pasa la imagen)
           fill(0,255,0);
           rectMode(CENTER);
-          rect(0, 0, 5, 15);
+          rect(0, 0, widthBullet, heightBullet);
         
         PosX = modelX(0,0,0);
         PosY = modelY(0,0,0);
@@ -93,5 +95,40 @@ void SetCurrentLife(){
         PosY = height + 10;
     }
   }
+void SeeCollision(){
+    //pillamos la pas paredes de las ballas
+    PVector Min_Bullet = new PVector(PosX+widthBullet*0.5,PosY+heightBullet*0.5);
+    PVector Max_Bullet = new PVector(PosX+widthBullet*0.5,PosY+heightBullet*0.5); 
+  
+    //pillamos uno de los dos player en funcion de quien ha disparado
+    
+    PVector Min_Player;
+    PVector Max_Player;
+    
+    if(Player1){
+      Min_Player = new PVector(player2.getX()-player2.GetSquareLengt()*0.5, player2.getY()-player2.GetSquareLengt()*0.5);
+      Max_Player = new PVector(player2.getX()+player2.GetSquareLengt()*0.5, player2.getY()+player2.GetSquareLengt()*0.5);
+    }
+    else{
+      Min_Player = new PVector(player1.getX()-player2.GetSquareLengt()*0.5, player1.getY()-player2.GetSquareLengt()*0.5);
+      Max_Player = new PVector(player1.getX()+player2.GetSquareLengt()*0.5, player1.getY()+player2.GetSquareLengt()*0.5);
+    }
+
+    if((Max_Bullet.x < Min_Player.x)||(Max_Bullet.y < Min_Player.y)||(Max_Player.x< Min_Bullet.x) || (Max_Player.y< Min_Bullet.y)){ //no collision
+   
+    }
+    else{ //si collision
+      if(Player1){
+         p1Score.AddPlayerScore();
+      }
+      else{
+        p2Score.AddPlayerScore();
+      }
+       isActive = false;
+    }
+
+    
+}
+
 
 }

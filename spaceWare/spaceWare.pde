@@ -66,6 +66,7 @@ void draw(){
            //print bullet
            if(BulletPJ1.get(i).GetisActive()){
              BulletPJ1.get(i).PrintBullet();
+             BulletPJ1.get(i).SeeCollision();
            }
            else{
              BulletPJ1.remove(i);
@@ -90,6 +91,7 @@ void draw(){
            //print bullet
            if(BulletPJ2.get(i).GetisActive()){
              BulletPJ2.get(i).PrintBullet();
+             BulletPJ2.get(i).SeeCollision();
            }
            else{
              BulletPJ2.remove(i);
