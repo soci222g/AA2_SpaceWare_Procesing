@@ -8,6 +8,10 @@ void keyPressed() {
   if (keyCode < 128) {
     keys[keyCode] = true;
   }
+  
+  if (keys['H']) {
+  LUT_HitPJ(); // Llama al parpadeo cuando se presiona 'h'
+}
 }
 
 void keyReleased() {

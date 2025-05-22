@@ -189,6 +189,7 @@ void PlayerBorders() { // Movimiento del PJ
     if(NumPower == 0){
       tripleShotActive = true;
       currentTimePowerUp = timerPowerUp;
+
     }
   }
 
@@ -196,6 +197,7 @@ void TimerTripleShoot(){
         if(tripleShotActive){
           if(currentTimePowerUp > 0){
             currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
+                  LUT_PW(); //Crec que aqui esta bé
           }
           
         }

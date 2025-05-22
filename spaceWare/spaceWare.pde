@@ -9,11 +9,13 @@ Score p2Score;
 
 ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
 
+PImage naveImgOriginal;
 PImage naveImg;
 
-void setup(){
-size (800,800, P3D);
-naveImg = loadImage("nave.png");
+void setup() {
+  size(800, 800, P3D);
+  naveImgOriginal = loadImage("nave.png");
+  naveImg = naveImgOriginal.copy(); // Usar copia para modificaciones
 player1 = new Player(200,400,0.01,1,0.1,1, naveImg); //new Player(200,400,0.01,1,0.1,1);
 player2 = new Player(600,400,0.01,1,0.1,1, naveImg); //new Player(600,400,0.01,1,0.1,1);
 p1Score = new Score();
@@ -98,6 +100,9 @@ void draw(){
     
   }
  
-  
+  //Prova per a veure si funciona la LUT del parpadeig
+    if (isFlashing) {
+    updateFlashEffect();
+  }
   
 }
