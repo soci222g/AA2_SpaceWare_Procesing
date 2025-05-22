@@ -107,6 +107,7 @@ void draw(){
       curvaPJ1.get(i).calcular_coefs();
       curvaPJ1.get(i).calcula_nueva_posicion_Bullet();
       curvaPJ1.get(i).print_Bullet();
+      curvaPJ1.get(i).SeeCollision();
       }
       else{
         curvaPJ1.remove(i);
@@ -121,6 +122,7 @@ void draw(){
       curvaPJ2.get(i).calcular_coefs();
       curvaPJ2.get(i).calcula_nueva_posicion_Bullet();
       curvaPJ2.get(i).print_Bullet();
+      curvaPJ2.get(i).SeeCollision();
       }
       else{
         curvaPJ2.remove(i);
