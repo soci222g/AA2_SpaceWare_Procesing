@@ -1,11 +1,13 @@
 
 Player player1;
 ArrayList<bullet> BulletPJ1 = new ArrayList<bullet>();
+ArrayList<curva> curvaPJ1 = new ArrayList<curva>();
 Score p1Score;
 
 Player player2;
 ArrayList<bullet> BulletPJ2 = new ArrayList<bullet>();
-ArrayList<curva> curvaPJ1 = new ArrayList<curva>();
+ArrayList<curva> curvaPJ2 = new ArrayList<curva>();
+
 Score p2Score;
 
 ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
@@ -13,20 +15,15 @@ ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
 PImage naveImgOriginal;
 PImage naveImg;
 
-void setup() {
-  size(800, 800, P3D);
-  naveImgOriginal = loadImage("nave.png");
-  naveImg = naveImgOriginal.copy(); // Usar copia para modificaciones
-ArrayList<curva> curvaPJ2 = new ArrayList<curva>();
-PImage naveImg;
-
 //setup per la posicion de las curbas del boomerang para player 1 i player 2
 PVector p1[];
 PVector p2[];
 
-void setup(){
-size (800,800, P3D);
-naveImg = loadImage("nave.png");
+void setup() {
+  size(800, 800, P3D);
+  naveImgOriginal = loadImage("nave.png");
+  naveImg = naveImgOriginal.copy(); // Usar copia para modificaciones
+
 player1 = new Player(200,400,0.01,1,0.1,1, naveImg); //new Player(200,400,0.01,1,0.1,1);
 player2 = new Player(600,400,0.01,1,0.1,1, naveImg); //new Player(600,400,0.01,1,0.1,1);
 p1Score = new Score();
@@ -51,10 +48,6 @@ p2Score = new Score();
 
 void draw(){
   background(0);
- 
-  
-  
-  
   
   //input pj1
   inputForwardP1();
