@@ -9,9 +9,6 @@ void keyPressed() {
     keys[keyCode] = true;
   }
   
-  if (keys['H']) {
-  LUT_HitPJ(); // Llama al parpadeo cuando se presiona 'h'
-}
 }
 
 void keyReleased() {
@@ -59,7 +56,7 @@ void inputShootPlayer1(){
          player1.activateColldown(); //<>//
     }
     else if(player1.GetBoomeranShoot()){
-      
+       //<>// //<>//
         p1[0] = new PVector(player1.getX(), player1.getY()); // Este es el punto de ctrl P0
         //trnafomr para setear los puntos en funcion del player
        print(p1[0].x,",",p1[0].y, " ");

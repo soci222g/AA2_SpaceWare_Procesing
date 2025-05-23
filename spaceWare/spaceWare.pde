@@ -157,8 +157,13 @@ void draw(){
   }
  
   //Prova per a veure si funciona la LUT del parpadeig
-    if (isFlashing) {
-    updateFlashEffect();
+  if (isFlashingP1) {
+    updateFlashEffect(player1, flashStartTimeP1, 1);
   }
+  if (isFlashingP2) {
+    updateFlashEffect(player2, flashStartTimeP2, 2);
+  }
+
+
   
 }
