@@ -119,10 +119,10 @@ void SeeCollision(){
     }
     else{ //si collision
       if(Player1){
-         p1Score.AddPlayerScore();
+         p1Score.AddPlayerScore( 100);
       }
       else{
-        p2Score.AddPlayerScore();
+        p2Score.AddPlayerScore(100);
       }
        isActive = false;
     }
