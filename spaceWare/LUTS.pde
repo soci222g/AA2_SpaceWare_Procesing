@@ -21,6 +21,9 @@ void LUT_PW(PImage img, String tipoEfecto) {
         img.pixels[i] = color(255, 0, 0, alpha);
       } else if (tipoEfecto.equals("green")) {
         img.pixels[i] = color(0, 255, 0, alpha);
+      }
+        else if (tipoEfecto.equals("blue")) {
+        img.pixels[i] = color(0, 0, 255, alpha);
       } else {
         img.pixels[i] = color(r, g, b, alpha);
       }

@@ -118,18 +118,26 @@ void SeeCollision(){
    
     }
     else{ //si collision
-      if(Player1){
-         p1Score.AddPlayerScore( 100);
-         startFlashPlayer2();
-      }
-      else{
-        p2Score.AddPlayerScore(100);
-        startFlashPlayer1();
-      }
-       isActive = false;
+     if (Player1) {
+    if (player2.GetInvincibility()) {
+      // Si el jugador 2 está invencible, no hacer nada
+      println("Player 2 is invincible. Bullet has no effect.");
+    } else {
+      p1Score.AddPlayerScore(100);
+      startFlashPlayer2();
+      isActive = false;
     }
-
-    
+  } else {
+    if (player1.GetInvincibility()) {
+      // Si el jugador 1 está invencible, no hacer nada
+      println("Player 1 is invincible. Bullet has no effect.");
+    } else {
+      p2Score.AddPlayerScore(100);
+      startFlashPlayer1();
+      isActive = false;
+    }
+  }
+}
 }
 
 

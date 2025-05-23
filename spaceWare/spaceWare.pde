@@ -129,7 +129,7 @@ Obstaculo1.ClaculaPositionObstaculo(0.005);
   player1.ColldownShoot();  
   player1.PrintPlayer();
   
-  if(player1.GetTripleShoot() || player1.GetBoomeranShoot()){ 
+  if(player1.GetTripleShoot() || player1.GetBoomeranShoot() ||player1.GetInvincibility()){ 
           
       player1.TimerPowerUps();
   }

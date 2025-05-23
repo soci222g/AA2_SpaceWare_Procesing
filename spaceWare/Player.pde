@@ -244,11 +244,11 @@ void TimerPowerUps(){
         }
         
          if(invincibilityActive){
-            println("AZULLLLL");
             tipoLut = "blue";
             if(currentTimePowerUp > 0){
               currentTimePowerUp -= 0.1;
-              activeLutPW = true;
+              
+              LUT_PW(navePJ, tipoLut); 
             } else {
               invincibilityActive = false;
             }
@@ -262,9 +262,6 @@ void TimerPowerUps(){
 
           
   }
-
-  
-
 }
  
     
