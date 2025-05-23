@@ -63,7 +63,7 @@ class Player {
     currentTimePowerUp = 0;
     
     
-    PositonText = new PVector(x,y - 50);
+    PositonText = new PVector(x - 50,y - 50);
     TextoDistancia = 50;
     TextoSpeed = 0.1;
     

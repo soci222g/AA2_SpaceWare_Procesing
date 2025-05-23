@@ -25,8 +25,8 @@ void setup() {
   naveImgOriginal = loadImage("nave.png");
   nave1Img = naveImgOriginal.copy(); // Usar copia para modificaciones
   nave2Img = naveImgOriginal.copy(); // Usar copia para modificaciones
-player1 = new Player(200,400,0.01,2,0.1,2, nave1Img); //new Player(200,400,0.01,1,0.1,1);
-player2 = new Player(600,400,0.01,2,0.1,2, nave2Img); //new Player(600,400,0.01,1,0.1,1);
+player1 = new Player(250,400,0.01,2,0.1,2, nave1Img); //new Player(200,400,0.01,1,0.1,1);
+player2 = new Player(450,400,0.01,2,0.1,2, nave2Img); //new Player(600,400,0.01,1,0.1,1);
 
 p1Score = new Score();
 p2Score = new Score();
