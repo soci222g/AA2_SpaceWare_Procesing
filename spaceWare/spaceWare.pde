@@ -67,7 +67,7 @@ p2Score = new Score();
   k[3] = new PVector(600,750); // P3
   Seccion_Obstacle2 = new RutaObstaculo(k);
   
-   PVector w[]; //tercera seccion de la curba
+   PVector w[]; //tercera seccion de la curva
   w = new PVector[4];
   w[0] = new PVector(600,750); //este el el punto inicial P0
   w[1] = new PVector(500,700); // p1
@@ -75,7 +75,7 @@ p2Score = new Score();
   w[3] = new PVector(250,500); // P3
   Seccion_Obstacle3 = new RutaObstaculo(w);
   
-  PVector l[]; //quarta seccion de la curba
+  PVector l[]; //quarta seccion de la curva
   l = new PVector[4];
   l[0] = new PVector(250,500); //este el el punto inicial P0
   l[1] = new PVector(125,400); // p1

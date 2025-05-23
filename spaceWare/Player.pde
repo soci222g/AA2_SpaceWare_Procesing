@@ -246,7 +246,7 @@ void TimerPowerUps(){
            if(currentTimePowerUp > 0){
             
               currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
-               LUT_PW(navePJ, tipoLut); 
+
           }
             else{
                 boomeranShoot = false;
@@ -258,10 +258,10 @@ void TimerPowerUps(){
             tipoLut = "blue";
             if(currentTimePowerUp > 0){
               currentTimePowerUp -= 0.1;
-              
-              LUT_PW(navePJ, tipoLut); 
+
             } else {
               invincibilityActive = false;
+              activeLutPW = false;
             }
          }
         
