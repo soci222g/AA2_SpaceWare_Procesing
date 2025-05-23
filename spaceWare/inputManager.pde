@@ -1,4 +1,4 @@
-///faltra mirar una forma de fer multiples input a l'hora
+///falta mirar una forma de hacer múltiples inputs a la vez
 boolean[] keys = new boolean[128];
 
 void keyPressed() {
@@ -53,12 +53,12 @@ void inputShootPlayer1(){
          BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
          BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() + 25));
          BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() - 25));
-         player1.activateColldown(); //<>// //<>// //<>// //<>// //<>// //<>//
+         player1.activateColldown(); //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     }
     else if(player1.GetBoomeranShoot()){
-       //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+       //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
         p1[0] = new PVector(player1.getX(), player1.getY()); // Este es el punto de ctrl P0
-        //trnafomr para setear los puntos en funcion del player
+        //transformar para setear los puntos en función del player
        print(p1[0].x,",",p1[0].y, " ");
         pushMatrix();
       
@@ -137,7 +137,7 @@ void inputShootPlayer2(){
      else if(player2.GetBoomeranShoot()){
       
         p2[0] = new PVector(player2.getX(), player2.getY()); // Este es el punto de ctrl P0
-        //trnafomr para setear los puntos en funcion del player
+        //transformar para setear los puntos en función del player
         pushMatrix();
       
            translate(player2.getX(),player2.getY());

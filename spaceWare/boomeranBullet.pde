@@ -1,17 +1,16 @@
- // El parametro "u"
+// El parámetro "u"
 
 boolean activeBullet;
 
-  int widthBullet;
-  int heightBullet;
+int widthBullet;
+int heightBullet;
 // Clases
 class boomerangRecorido {
   // Atributos
   
-PVector BulletBoomeranPos;
-int estado_boomerang; 
-float u;
-  
+  PVector BulletBoomeranPos;
+  int estado_boomerang; 
+  float u;
   
   PVector[] puntos_de_ctrl;
   PVector[] coefs;
@@ -19,15 +18,14 @@ float u;
   boolean activeBullet;
   boolean Player1;
   
-  
   boomerangRecorido(PVector[] p, boolean playerAsigne) {
-   //activamos balla i asignamos jugador
+    //activamos bala y asignamos jugador
     activeBullet = true;
     Player1 = playerAsigne;
     
-     BulletBoomeranPos = new PVector(0,0);
-     estado_boomerang=1; 
-     u=0.01;
+    BulletBoomeranPos = new PVector(0,0);
+    estado_boomerang=1; 
+    u=0.01;
     
     widthBullet = 5;
     heightBullet = 15;
@@ -42,60 +40,53 @@ float u;
       puntos_de_ctrl[i]=p[i];
     }
   }
-  //geter
+
+  // getter
   boolean GetActive(){return activeBullet;}
   
-  // Metodos
+  // Métodos
   void calcular_coefs(){
-
-    //matriz de bezier
+    //matriz de Bézier
     //c0 = p0
     //c1 = -3P0 + 3P1
     //c2 = +3P0 - 6P1 + 3P2 
     //c3 = -P0 + 3P1 - 3P2 + p3
-    
-  //c0
+
+    //c0
     coefs[0].x = puntos_de_ctrl[0].x;
     coefs[0].y = puntos_de_ctrl[0].y;
     
-     
-  //c1 
+    //c1 
     coefs[1].x = -3*puntos_de_ctrl[0].x + 3*puntos_de_ctrl[1].x;
     coefs[1].y = -3*puntos_de_ctrl[0].y + 3*puntos_de_ctrl[1].y;
 
-// c2
-
+    //c2
     coefs[2].x = +3*puntos_de_ctrl[0].x - 6*puntos_de_ctrl[1].x + 3*puntos_de_ctrl[2].x; 
     coefs[2].y = +3*puntos_de_ctrl[0].y - 6*puntos_de_ctrl[1].y + 3*puntos_de_ctrl[2].y;
 
-
-  //c3
+    //c3
     coefs[3].x = -puntos_de_ctrl[0].x + 3*puntos_de_ctrl[1].x - 3*puntos_de_ctrl[2].x +puntos_de_ctrl[3].x;
     coefs[3].y = -puntos_de_ctrl[0].y + 3*puntos_de_ctrl[1].y - 3*puntos_de_ctrl[2].y + puntos_de_ctrl[3].y;
-
-  
   }
   
-  //fomrmula per pintar tota la curba (para hacer debug de estas)
+  //fórmula para pintar toda la curva (para hacer debug de estas)
   void pintar_curva(){
     float x,y;
   
-     // pasar per tota la curba con un for
+    // pasar por toda la curva con un for
     for (float i = 0.0; i <1; i += 0.01){
-        //calcular la x 
-           x = coefs[0].x + coefs[1].x*i + coefs[2].x * (i * i) + coefs[3].x * (i * i * i);
-        //calcuclar la y
-          y = coefs[0].y + coefs[1].y*i + coefs[2].y * (i * i) + coefs[3].y * (i * i * i);
-  
-        //pintar un punto en esa cordenada
-         point(x,y);
+      //calcular la x 
+      x = coefs[0].x + coefs[1].x*i + coefs[2].x * (i * i) + coefs[3].x * (i * i * i);
+      //calcular la y
+      y = coefs[0].y + coefs[1].y*i + coefs[2].y * (i * i) + coefs[3].y * (i * i * i);
+
+      //pintar un punto en esa coordenada
+      point(x,y);
     }
 
-  for(int i  = 0; i < 4; i++){
-   point(puntos_de_ctrl[i].x,puntos_de_ctrl[i].y); 
-  }
-    
-    
+    for(int i  = 0; i < 4; i++){
+      point(puntos_de_ctrl[i].x,puntos_de_ctrl[i].y); 
+    }
   }
 
   void pintar_puntos_de_ctrl() {
@@ -106,12 +97,11 @@ float u;
     }
   }
 
-
-// Funciones
-// Posicionar al PNJ
+  // Funciones
+  // Posicionar la bala
   void calcula_nueva_posicion_Bullet(){
-    // Segun el estado, nos movemos por una u otra curva
-    // Cuando el parametro "u" sea >= 1.0, toca cambiar de curva
+    // Según el estado, nos movemos por una u otra curva
+    // Cuando el parámetro "u" sea >= 1.0, toca cambiar de curva
     if (estado_boomerang==1){ // Estoy en p(u)
       BulletBoomeranPos.x = coefs[0].x +
       coefs[1].x * u +
@@ -122,26 +112,26 @@ float u;
       coefs[2].y * u * u +
       coefs[3].y * u * u * u;
     } 
-    // Control del parametro "u"
+    // Control del parámetro "u"
     u = u + 0.01;
     if (u >= 1.0){
-    
-     activeBullet = false;
+      activeBullet = false;
     }
   }
-// Pintarlo
+
+  // Pintarla
   void print_Bullet(){
-            fill(0,255,0);
-            rectMode(CENTER);
-            rect(BulletBoomeranPos.x, BulletBoomeranPos.y, 5, 15);
+    fill(0,255,0);
+    rectMode(CENTER);
+    rect(BulletBoomeranPos.x, BulletBoomeranPos.y, 5, 15);
   }
+
   void SeeCollision(){
-    //pillamos la pas paredes de las ballas
+    //pillamos las paredes de las balas
     PVector Min_Bullet = new PVector(BulletBoomeranPos.x+widthBullet*0.5,BulletBoomeranPos.y+heightBullet*0.5);
     PVector Max_Bullet = new PVector(BulletBoomeranPos.x+widthBullet*0.5,BulletBoomeranPos.y+heightBullet*0.5); 
   
-    //pillamos uno de los dos player en funcion de quien ha disparado
-    
+    //obtenemos uno de los dos jugadores en función de quién ha disparado
     PVector Min_Player;
     PVector Max_Player;
     
@@ -154,21 +144,17 @@ float u;
       Max_Player = new PVector(player1.getX()+player2.GetSquareLengt()*0.5, player1.getY()+player2.GetSquareLengt()*0.5);
     }
 
-    if((Max_Bullet.x < Min_Player.x)||(Max_Bullet.y < Min_Player.y)||(Max_Player.x< Min_Bullet.x) || (Max_Player.y< Min_Bullet.y)){ //no collision
-   
+    if((Max_Bullet.x < Min_Player.x)||(Max_Bullet.y < Min_Player.y)||(Max_Player.x< Min_Bullet.x) || (Max_Player.y< Min_Bullet.y)){ 
+      //no colisión
     }
-    else{ //si collision
+    else{ //sí colisión
       if(Player1){
          p1Score.AddPlayerScore(100);
       }
       else{
         p2Score.AddPlayerScore(100);
       }
-       activeBullet = false;
+      activeBullet = false;
     }
-
-    
-}
-  
-  
+  }
 }
