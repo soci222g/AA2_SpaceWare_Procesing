@@ -28,7 +28,7 @@ class bullet{
     currentLifeTime = 0;
     widthBullet = 5;
     heightBullet = 15;
-    FlySpeed = 2;
+    FlySpeed = 4;
   }
 //bullets geters
 boolean GetisActive(){return isActive; }

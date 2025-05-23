@@ -213,10 +213,12 @@ void TimerPowerUps(){
           }
           
         }
-        else if(boomeranShoot){
+        if(boomeranShoot){
            if(currentTimePowerUp > 0){
+            
               currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
-            }
+               LUT_PW(); 
+          }
             else{
                 boomeranShoot = false;
             }  

@@ -24,13 +24,13 @@ void setup() {
   naveImgOriginal = loadImage("nave.png");
   naveImg = naveImgOriginal.copy(); // Usar copia para modificaciones
 
-player1 = new Player(200,400,0.01,1,0.1,1, naveImg); //new Player(200,400,0.01,1,0.1,1);
-player2 = new Player(600,400,0.01,1,0.1,1, naveImg); //new Player(600,400,0.01,1,0.1,1);
+player1 = new Player(200,400,0.01,2,0.1,2, naveImg); //new Player(200,400,0.01,1,0.1,1);
+player2 = new Player(600,400,0.01,2,0.1,2, naveImg); //new Player(600,400,0.01,1,0.1,1);
 p1Score = new Score();
 p2Score = new Score();
 
 
-
+//posicion para las curvas de becier
   p1 = new PVector[4];
   p1[0] = new PVector(0, 0); // Este es el punto de ctrl P0
   p1[1] = new PVector(0, 0); // Y este es el P1
@@ -57,7 +57,8 @@ void draw(){
     //logica interna player
   player1.ColldownShoot();  
   player1.PrintPlayer();
-  if(player1.GetTripleShoot()){ 
+  if(player1.GetTripleShoot() || player1.GetBoomeranShoot()){ 
+          
       player1.TimerPowerUps();
   }
 
@@ -82,7 +83,7 @@ void draw(){
   player2.ColldownShoot();  
   player2.PrintPlayer();
 
-   if(player2.GetTripleShoot()){ 
+   if(player2.GetTripleShoot() || player2.GetBoomeranShoot()){ 
       player2.TimerPowerUps();
   }
 

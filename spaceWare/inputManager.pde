@@ -93,8 +93,8 @@ void inputShootPlayer1(){
          
          player1.activateColldown();
       }
-    else{
-      BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
+      else{
+       BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
        player1.activateColldown();
     }
     
