@@ -23,6 +23,7 @@ class Player {
   
   int timerPowerUp;
   float currentTimePowerUp;
+  float LastSavePlayerPowerUps;
   
   //powerUpsTrigers
   boolean tripleShotActive;
@@ -64,9 +65,9 @@ class Player {
     boomeranShoot = false;
     invincibilityActive = false;
     
-    timerPowerUp = 4000;
+    timerPowerUp = 10000;
     currentTimePowerUp = 0;
-    
+    LastSavePlayerPowerUps = 0;
     
     PositonText = new PVector(x - 50,y - 50);
     TextoDistancia = 50;
@@ -154,16 +155,7 @@ class Player {
          
   }
   
-  /*
-  void ReActivateObstacle(){
-    currentTimerObstacle = millis() - SaveLastTimeObstacles;
-    if(currentTimerObstacle > TimeToRespawnAObstacle){
-      SaveLastTimeObstacles = millis();
-      activeObstacle = true;
-    }
-  
-  }
-  */
+
   
   //rotation
   
@@ -228,60 +220,79 @@ void PlayerBorders() { // Movimiento del PJ
   void activate_powerUp(int NumPower){
     if(NumPower == 0){
       tripleShotActive = true;
-      currentTimePowerUp = timerPowerUp;
+      //currentTimePowerUp = timerPowerUp;
+      LastSavePlayerPowerUps = millis();
       activeLutPW = true;
 
     }
     if(NumPower == 1){
         boomeranShoot = true;
-        currentTimePowerUp = timerPowerUp;
+         //currentTimePowerUp = timerPowerUp;
+        LastSavePlayerPowerUps = millis();
         activeLutPW = true;  
     }
     if(NumPower == 2){
       println("AZULLLLL");
       invincibilityActive = true;
-      currentTimePowerUp = timerPowerUp;
+      //currentTimePowerUp = timerPowerUp;
+      LastSavePlayerPowerUps = millis();
       activeLutPW = true;
     }
   }
 
 String tipoLut = "";
 
+  /*
+  void ReActivateObstacle(){
+    currentTimerObstacle = millis() - SaveLastTimeObstacles;
+    if(currentTimerObstacle > TimeToRespawnAObstacle){
+      SaveLastTimeObstacles = millis();
+      activeObstacle = true;
+    }
+  
+  }
+  */
+
 void TimerPowerUps(){
         if(tripleShotActive){
           tipoLut = "red";
-
-          if(currentTimePowerUp > 0){
-            currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
+            
+            currentTimePowerUp = millis() - LastSavePlayerPowerUps;
+          if(currentTimePowerUp > timerPowerUp){
+             tripleShotActive = false;
+              activeLutPW = false;  //hem de normalitzar aixo (utilitzar funcio millis)
 
           }
           else{
-              tripleShotActive = false;
-              activeLutPW = false;
+          LUT_PW(navePJ, tipoLut); 
           }
-          
+                   
         }
         if(boomeranShoot){
            tipoLut = "green";
-           if(currentTimePowerUp > 0){
-            
-              currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
-               LUT_PW(navePJ, tipoLut); 
-          }
-            else{
+          
+           currentTimePowerUp = millis() - LastSavePlayerPowerUps;
+          if(currentTimePowerUp > timerPowerUp){
+           
                 boomeranShoot = false;
                 activeLutPW = false;
+                 //hem de normalitzar aixo (utilitzar funcio millis)
+               
+          }
+            else{
+                LUT_PW(navePJ, tipoLut); 
             } 
-        }
+          }
+        
         
          if(invincibilityActive){
             tipoLut = "blue";
-            if(currentTimePowerUp > 0){
-              currentTimePowerUp -= 0.1;
+           currentTimePowerUp = millis() - LastSavePlayerPowerUps;
+          if(currentTimePowerUp > timerPowerUp){
+               invincibilityActive = false;
               
-              LUT_PW(navePJ, tipoLut); 
             } else {
-              invincibilityActive = false;
+             LUT_PW(navePJ, tipoLut); 
             }
          }
         
@@ -293,6 +304,7 @@ void TimerPowerUps(){
 
           
   }
+
 
 void FollowText(int Score){
 
