@@ -196,7 +196,7 @@ void PlayerBorders() { // Movimiento del PJ
       tripleShotActive = true;
       currentTimePowerUp = timerPowerUp;
       activeLutPW = true;
-      LUT_PW(navePJ); //Crec que aqui esta bé
+      LUT_PW(navePJ, tipoLut); //Crec que aqui esta bé
 
     }
     if(NumPower == 1){
@@ -207,8 +207,12 @@ void PlayerBorders() { // Movimiento del PJ
     }
   }
 
+String tipoLut = "";
+
 void TimerPowerUps(){
         if(tripleShotActive){
+          tipoLut = "red";
+
           if(currentTimePowerUp > 0){
             currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
 
@@ -220,10 +224,11 @@ void TimerPowerUps(){
           
         }
         if(boomeranShoot){
+           tipoLut = "green";
            if(currentTimePowerUp > 0){
             
               currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
-               LUT_PW(navePJ); 
+               LUT_PW(navePJ, tipoLut); 
           }
             else{
                 boomeranShoot = false;
@@ -231,11 +236,12 @@ void TimerPowerUps(){
             } 
         }
         
-        if (activeLutPW){
-          LUT_PW(navePJ); //Crec que aqui esta bé
-        } else {
-          navePJ = navePJ_original.copy();
-        }
+      if (activeLutPW) {
+        applyLUTToPlayer(this, tipoLut);  // Aplica LUT a copia segura
+      } else {
+        navePJ = navePJ_original.copy();  // Restaura
+      }
+
           
   }
 

@@ -4,71 +4,107 @@ boolean activeLutPJ;
 //boolean GetLUT_PW(){return activeLutPW;}
 //boolean GetLUT_PJ(){return activeLutPJ;}
 //LUT 1
-void LUT_PW(PImage img) {
-  println("Changed Color");
-  for(int i = 0; i <  img.width;i++){ //Recorre columnas, osea en X
-      for(int j = 0; j <  img.height;j++){ //Recorre filas, osea en Y
-        //Ya estoy en el pixel i,j de la imagen
-        //1) Get de los valores RGB del pixel
-        color p_color =  img.get(i,j);
-        //2) Aplicar la formula, la LUT
-        float r = red(p_color);
-        float g = green(p_color);
-        float b = blue(p_color);
-        float y = 0.299 * r + 0.587 * g + 0.114 * b;//aplicar la formula
-        color n_color = color(y);
-        //3) Set de los nuevos valores al pixel
-        img.set(i,j,n_color);
-        if (y<125.0) y=0.0;
-        else y=255.0;
-        n_color = color(y);
-        img.set(i,j,n_color);
+
+void LUT_PW(PImage img, String tipoEfecto) {
+  img.loadPixels();
+  for (int i = 0; i < img.pixels.length; i++) {
+    color c = img.pixels[i];
+    float alpha = alpha(c);
+
+    // Solo modificar si no es transparente
+    if (alpha > 0) {
+      float r = red(c);
+      float g = green(c);
+      float b = blue(c);
+
+      if (tipoEfecto.equals("red")) {
+        img.pixels[i] = color(255, 0, 0, alpha);
+      } else if (tipoEfecto.equals("green")) {
+        img.pixels[i] = color(0, 255, 0, alpha);
+      } else {
+        img.pixels[i] = color(r, g, b, alpha);
       }
     }
+  }
+  img.updatePixels();
 }
+
+    
+
+
+void applyLUTToPlayer(Player pj, String tipoEfecto) {
+  PImage copy = pj.navePJ_original.copy();
+  LUT_PW(copy, tipoEfecto);
+  pj.navePJ = copy;
+}
+
+
 
 
 //LUT 2
-boolean isFlashing = false;
-int flashStartTime = 0;
-int flashInterval = 200;  // Cambia de color cada 200ms
-int flashDuration = 2000; // Duración total de 2 segundos
-boolean flashWhite = true;
+boolean isFlashingP1 = false;
+boolean isFlashingP2 = false;
 
-void LUT_HitPJ() {
-  isFlashing = true;
-  flashStartTime = millis();
-}
+int flashStartTimeP1 = 0;
+int flashStartTimeP2 = 0;
 
-void updateFlashEffect() {
+boolean flashWhiteP1 = true;
+boolean flashWhiteP2 = true;
+
+int flashInterval = 200;   // ms entre parpadeos
+int flashDuration = 2000;  // ms total del efecto
+
+
+void updateFlashEffect(Player pj, int flashStartTime, int playerId) {
   int currentTime = millis();
   int elapsedTime = currentTime - flashStartTime;
 
   if (elapsedTime > flashDuration) {
-    isFlashing = false;
-    return; // termina el parpadeo
+    if (playerId == 1) isFlashingP1 = false;
+    if (playerId == 2) isFlashingP2 = false;
+    pj.navePJ = pj.navePJ_original.copy();  // Restaurar imagen original
+    return;
   }
 
-  // Cambiar color cada flashInterval
   if ((elapsedTime / flashInterval) % 2 == 0) {
-    if (!flashWhite) {
-      applyFlashColor(255);  // blanco
-      flashWhite = true;
+    if (playerId == 1 && !flashWhiteP1) {
+      applyFlashColor(pj, 255);
+      flashWhiteP1 = true;
+    }
+    if (playerId == 2 && !flashWhiteP2) {
+      applyFlashColor(pj, 255);
+      flashWhiteP2 = true;
     }
   } else {
-    if (flashWhite) {
-      applyFlashColor(0);  // negro
-      flashWhite = false;
+    if (playerId == 1 && flashWhiteP1) {
+      applyFlashColor(pj, 0);
+      flashWhiteP1 = false;
+    }
+    if (playerId == 2 && flashWhiteP2) {
+      applyFlashColor(pj, 0);
+      flashWhiteP2 = false;
     }
   }
 }
 
-void applyFlashColor(float gray) {
-  //naveImg.loadPixels(); // Accede a los píxeles crudos
-  //for (int i = 0; i < naveImg.pixels.length; i++) {
-  //  color c = naveImg.pixels[i];
-  //  if (alpha(c) == 0) continue; // Mantener transparencia
-  //  naveImg.pixels[i] = color(gray, gray, gray, alpha(c));
-  //}
-  //naveImg.updatePixels(); // Refresca la imagen después de los cambios
+void applyFlashColor(Player pj, float gray) {
+  pj.navePJ.loadPixels();  // Accede a los píxeles del jugador
+  for (int i = 0; i < pj.navePJ.pixels.length; i++) {
+    color c = pj.navePJ.pixels[i];
+    if (alpha(c) == 0) continue;  // Mantener transparencia
+    pj.navePJ.pixels[i] = color(gray, gray, gray, alpha(c));
+  }
+  pj.navePJ.updatePixels();  // Refresca la imagen después de los cambios
+}
+
+void startFlashPlayer1() {
+  isFlashingP1 = true;
+  flashStartTimeP1 = millis();
+  flashWhiteP1 = true;
+}
+
+void startFlashPlayer2() {
+  isFlashingP2 = true;
+  flashStartTimeP2 = millis();
+  flashWhiteP2 = true;
 }

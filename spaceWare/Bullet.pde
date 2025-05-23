@@ -120,9 +120,11 @@ void SeeCollision(){
     else{ //si collision
       if(Player1){
          p1Score.AddPlayerScore( 100);
+         startFlashPlayer2();
       }
       else{
         p2Score.AddPlayerScore(100);
+        startFlashPlayer1();
       }
        isActive = false;
     }
