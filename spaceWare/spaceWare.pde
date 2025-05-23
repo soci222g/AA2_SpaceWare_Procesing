@@ -1,4 +1,8 @@
 
+PImage Bg_Imag;
+
+
+
 Player player1;
 ArrayList<bullet> BulletPJ1 = new ArrayList<bullet>();
 ArrayList<boomerangRecorido> curvaPJ1 = new ArrayList<boomerangRecorido>();
@@ -86,13 +90,15 @@ p2Score = new Score();
   
   Obstaculo1 = new obstaculo(1);
   Obstaculo2 = new obstaculo(3);
-
+ 
+ 
+ Bg_Imag = loadImage("BackGround.png");
 }
 
 
 
 void draw(){
-  background(0);
+  background(Bg_Imag);
   //obstaculo
   
   

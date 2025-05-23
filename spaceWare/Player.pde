@@ -146,7 +146,7 @@ class Player {
   //shoot coldown
   void ColldownShoot(){
     currentColdown = millis() - LastSavePlayerShoot;
-      if(currentColdown > timerPowerUp){
+      if(currentColdown > shootColdown){
           CanShoot = true;
         }
         else{
