@@ -1,7 +1,7 @@
 //timer global
 
 float SaveLastTimePower;
-final int TimeToCreateAPower = 10000; //60 segundos
+final int TimeToCreateAPower = 10000; //10 segundos
 float currentTimerPower;
 
 class PowerUp{
@@ -17,7 +17,7 @@ class PowerUp{
     posX = random(width);
     posY = random(height);
     isActive = true;
-    spierRadius = 20;
+    spierRadius = 10;
     numPowerUp = int(random(0,2)); //poner random qunado programado los otros
   }
   
@@ -29,7 +29,7 @@ class PowerUp{
      ellipse(posX,posY,spierRadius,spierRadius);
     }
     else if(numPowerUp == 1){
-      fill(0,255,0);
+       fill(0,255,0);
        ellipse(posX,posY,spierRadius,spierRadius);
     }
     

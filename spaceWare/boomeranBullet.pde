@@ -75,8 +75,7 @@ float u;
   void pintar_curva(){
     float x,y;
   
-    strokeWeight(5); // pixeles de grosor
-    stroke(255,255,0); // color de la curba
+     // color de la curba
     for (float i = 0.0; i <1; i += 0.01){
         //calcular la x 
            x = coefs[0].x + coefs[1].x*i + coefs[2].x * (i * i) + coefs[3].x * (i * i * i);
@@ -86,8 +85,7 @@ float u;
         //pintar un punto en esa cordenada
          point(x,y);
     }
-     strokeWeight(10); // pixeles de grosor
-    stroke(255,0,0); 
+
   for(int i  = 0; i < 4; i++){
    point(puntos_de_ctrl[i].x,puntos_de_ctrl[i].y); 
   }

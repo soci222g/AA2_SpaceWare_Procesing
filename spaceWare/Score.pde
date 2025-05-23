@@ -5,7 +5,11 @@ class Score {
   
   
   void AddPlayerScore( int score){
+    
+    
       playerScore += score;
+    
+    
       
      println("Puntos actuales: " + playerScore);
   }

@@ -1,14 +1,17 @@
 
 
-RutaObstaculo Mi_primera_Curva;
-RutaObstaculo Mi_segunda_Curva;
-RutaObstaculo Mi_tercera_Curva;
-RutaObstaculo Mi_quarta_Curva;
+RutaObstaculo Seccion_Obstacle1;
+RutaObstaculo Seccion_Obstacle2;
+RutaObstaculo Seccion_Obstacle3;
+RutaObstaculo seccion_Obstacle4;
 
-obstaculo PNJ1;
-obstaculo PNJ2;
-obstaculo PNJ3;
-obstaculo PNJ4;
+obstaculo Obstaculo1;
+obstaculo Obstaculo2;
+
+//timeObstaclesRespawn
+float SaveLastTimeObstacles;
+final int TimeToRespawnAObstacle = 5000; //5 segundos
+float currentTimerObstacle;
 
 
 //obstaculo rutacio
@@ -103,8 +106,7 @@ class RutaObstaculo{
   }
   
   void PintarPuntosControl(){
-      strokeWeight(10); // pixeles de grosor
-      stroke(255,0,0); 
+ 
       for(int i  = 0; i < 4; i++){
          point(puntos_de_ctrl[i].x,puntos_de_ctrl[i].y); 
     }
@@ -130,27 +132,33 @@ class obstaculo{
       activeObstacle = true;
   }
     
-    void ClaculaPositionPNJ( float speed, RutaObstaculo[4] ruta){
+    //geter
+    
+    boolean GetActivateObstacle(){ return activeObstacle;}
+    
+    
+    
+    void ClaculaPositionObstaculo( float speed){
     //segons el estat i la U ens movem per les curvas
     
     
-    
-    switch (State_PNJ){
+     //va saltando de curba en curba
+ switch (State_PNJ){
       case 1:
-       PNJ.x = ruta[0].coefs[0].x + ruta[0].coefs[1].x*u + ruta[0].coefs[2].x * (u * u) + ruta[0].coefs[3].x * (u * u * u);
-       PNJ.y = rut[0].coefs[0].y + ruta[0].coefs[1].y*u + ruta[0].coefs[2].y * (u * u) + ruta[0].coefs[3].y * (u * u * u);
+       PNJ.x = Seccion_Obstacle1.coefs[0].x + Seccion_Obstacle1.coefs[1].x*u + Seccion_Obstacle1.coefs[2].x * (u * u) + Seccion_Obstacle1.coefs[3].x * (u * u * u);
+       PNJ.y = Seccion_Obstacle1.coefs[0].y + Seccion_Obstacle1.coefs[1].y*u + Seccion_Obstacle1.coefs[2].y * (u * u) + Seccion_Obstacle1.coefs[3].y * (u * u * u);
         break;
       case 2:
-       PNJ.x = ruta[1].coefs[0].x + ruta[1].coefs[1].x*u + ruta[1].coefs[2].x * (u * u) +  ruta[1].coefs[3].x * (u * u * u);
-       PNJ.y =  ruta[1].coefs[0].y +  ruta[1].coefs[1].y*u +  ruta[1].coefs[2].y * (u * u) +  ruta[1].coefs[3].y * (u * u * u);
+       PNJ.x = Seccion_Obstacle2.coefs[0].x + Seccion_Obstacle2.coefs[1].x*u + Seccion_Obstacle2.coefs[2].x * (u * u) + Seccion_Obstacle2.coefs[3].x * (u * u * u);
+       PNJ.y = Seccion_Obstacle2.coefs[0].y + Seccion_Obstacle2.coefs[1].y*u + Seccion_Obstacle2.coefs[2].y * (u * u) + Seccion_Obstacle2.coefs[3].y * (u * u * u);
         break;
       case 3:
-       PNJ.x =  ruta[2].coefs[0].x + Mi_tercera_Curva.coefs[1].x*u + Mi_tercera_Curva.coefs[2].x * (u * u) + ruta[2].coefs[3].x * (u * u * u);
-       PNJ.y = ruta[2].coefs[0].y + ruta[2].coefs[1].y*u + ruta[2].coefs[2].y * (u * u) + ruta[2].coefs[3].y * (u * u * u);
+       PNJ.x = Seccion_Obstacle3.coefs[0].x + Seccion_Obstacle3.coefs[1].x*u + Seccion_Obstacle3.coefs[2].x * (u * u) + Seccion_Obstacle3.coefs[3].x * (u * u * u);
+       PNJ.y = Seccion_Obstacle3.coefs[0].y + Seccion_Obstacle3.coefs[1].y*u + Seccion_Obstacle3.coefs[2].y * (u * u) + Seccion_Obstacle3.coefs[3].y * (u * u * u);
         break;
       case 4:
-       PNJ.x = ruta[3].coefs[0].x + ruta[3].coefs[1].x*u + ruta[3].coefs[2].x * (u * u) + ruta[3].coefs[3].x * (u * u * u);
-       PNJ.y = ruta[3].coefs[0].y + ruta[3].coefs[1].y*u + ruta[3].coefs[2].y * (u * u) + ruta[3].coefs[3].y * (u * u * u);
+       PNJ.x = seccion_Obstacle4.coefs[0].x + seccion_Obstacle4.coefs[1].x*u + seccion_Obstacle4.coefs[2].x * (u * u) + seccion_Obstacle4.coefs[3].x * (u * u * u);
+       PNJ.y = seccion_Obstacle4.coefs[0].y + seccion_Obstacle4.coefs[1].y*u + seccion_Obstacle4.coefs[2].y * (u * u) + seccion_Obstacle4.coefs[3].y * (u * u * u);
         break;
     }
       
@@ -172,47 +180,16 @@ class obstaculo{
         
   }
   
-  void ClaculaPositionPNJPistaModolar(float speed, RutaObstaculo[] arrayCorva){
-    //segons el estat i la U ens movem per les curvas
-    
-    
-    for (int i = 0; i < arrayCorva.length; i++){
-        PNJ.x = arrayCorva[i].coefs[0].x + arrayCorva[i].coefs[1].x*u + arrayCorva[i].coefs[2].x * (u * u) + arrayCorva[i].coefs[3].x * (u * u * u);
-        PNJ.y = arrayCorva[i].coefs[0].y + arrayCorva[i].coefs[1].y*u + arrayCorva[i].coefs[2].y * (u * u) + arrayCorva[i].coefs[3].y * (u * u * u);
-    
-    
-     if(u < 1){
-        u += speed;
-        break;
-        }
-        else if(u >= 1){
-          
-          if(State_PNJ ==  arrayCorva.length){
-              i = 0;
-            }
-          else{
-              i++;
-              
-            }
-            u = 0;
-            break;
-        }
-    }
-      
-    
-    
-        
-  }
+  
 
-  void PrintaPNJ(){
-      strokeWeight(50); // pixeles de grosor
-    stroke(0,255,0); 
+  void PrintaObstaculo(){
+      fill(255,255,0); 
     ellipse(PNJ.x,PNJ.y, spierRadius, spierRadius);
   }
   
   
   
-  void SeeCollision(){
+  void SeeCollision1(){
     //pillamos la pas paredes de las ballas
      //pillamos la paret
     float base_position_x_PJ1 = player1.getX() - player1.getSquareLenght() * 0.5;
@@ -242,15 +219,21 @@ class obstaculo{
      float Distanca = sqrt((ClosDisX*ClosDisX)+ (ClosDisY*ClosDisY));
      
      if(Distanca <= spierRadius){
+       
+         p1Score.AddPlayerScore(-100);
+         
          activeObstacle = false;
-          p1Score.AddPlayerScore(-100);
      } 
+  }
+    
      
      //player 2
-     
+      void SeeCollision2(){ 
     float base_position_x_PJ2 = player2.getX() - player2.getSquareLenght() * 0.5;
     float base_position_y_PJ2 =  player2.getY() - player2.getSquareLenght() * 0.5;
     //esfera
+    float posPowerX = PNJ.x;
+    float posPowerY = PNJ.y;
        
     //quina de les 2 X del player esta mes aprop el collider
     if(PNJ.x < base_position_x_PJ2){
@@ -267,18 +250,27 @@ class obstaculo{
       posPowerY = base_position_y_PJ2 + player2.getSquareLenght();
     }
    
-     ClosDisX = PNJ.x - posPowerX;
-     ClosDisY = PNJ.y - posPowerY;
+    float ClosDisX = PNJ.x - posPowerX;
+    float ClosDisY = PNJ.y - posPowerY;
     
-     Distanca = sqrt((ClosDisX*ClosDisX)+ (ClosDisY*ClosDisY));
+    float Distanca = sqrt((ClosDisX*ClosDisX)+ (ClosDisY*ClosDisY));
           
      if(Distanca <= spierRadius){
-         activeObstacle = false;
-         p2Score.AddPlayerScore(-100);
+       p2Score.AddPlayerScore(-100);  
+       activeObstacle = false; 
      } 
+      
      
 
     
   }
   
+  void ReActivateObstacle(){
+    currentTimerObstacle = millis() - SaveLastTimeObstacles;
+    if(currentTimerObstacle > TimeToRespawnAObstacle){
+      SaveLastTimeObstacles = millis();
+      activeObstacle = true;
+    }
+  
+  }
 }

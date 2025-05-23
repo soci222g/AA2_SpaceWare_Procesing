@@ -48,12 +48,77 @@ p2Score = new Score();
   //Desactivar luts als principio
   activeLutPW = false;
   activeLutPJ = false;
+  
+  
+  //obstaculo
+  PVector q[]; //primera posicion de la curba
+  q = new PVector[4];
+  q[0] = new PVector(200,100); //este el el punto inicial P0
+  q[1] = new PVector(300,150); // p1
+  q[2] = new PVector(400,50); // P2
+  q[3] = new PVector(700,200); // P3
+  Seccion_Obstacle1 = new RutaObstaculo(q);
+  
+  PVector k[]; //segunda seccion de la curba
+  k = new PVector[4];
+  k[0] = new PVector(700,200); //este el el punto inicial P0
+  k[1] = new PVector(650,400); // p1
+  k[2] = new PVector(750,550); // P2
+  k[3] = new PVector(600,750); // P3
+  Seccion_Obstacle2 = new RutaObstaculo(k);
+  
+   PVector w[]; //tercera seccion de la curba
+  w = new PVector[4];
+  w[0] = new PVector(600,750); //este el el punto inicial P0
+  w[1] = new PVector(500,700); // p1
+  w[2] = new PVector(450,550); // P2
+  w[3] = new PVector(250,500); // P3
+  Seccion_Obstacle3 = new RutaObstaculo(w);
+  
+  PVector l[]; //quarta seccion de la curba
+  l = new PVector[4];
+  l[0] = new PVector(250,500); //este el el punto inicial P0
+  l[1] = new PVector(125,400); // p1
+  l[2] = new PVector(100,200); // P2
+  l[3] = new PVector(200,100); // P3
+  seccion_Obstacle4 = new RutaObstaculo(l);
+  
+  
+  Obstaculo1 = new obstaculo(1);
+  Obstaculo2 = new obstaculo(3);
+
 }
 
 
 
 void draw(){
   background(0);
+  //obstaculo
+  
+  
+Obstaculo1.ClaculaPositionObstaculo(0.005);
+    if(Obstaculo1.GetActivateObstacle()){
+      Obstaculo1.PrintaObstaculo();
+      Obstaculo1.SeeCollision1();
+      Obstaculo1.SeeCollision2();
+
+    }
+    else{
+       Obstaculo1.ReActivateObstacle();
+         
+    }
+    
+    Obstaculo2.ClaculaPositionObstaculo(0.005);
+  if(Obstaculo2.GetActivateObstacle()){
+      Obstaculo2.PrintaObstaculo();
+      Obstaculo2.SeeCollision1();
+      Obstaculo2.SeeCollision2();
+  }
+   else{
+       Obstaculo2.ReActivateObstacle();
+      
+    }
+  
   
   //input pj1
   inputForwardP1();
@@ -63,6 +128,7 @@ void draw(){
     //logica interna player
   player1.ColldownShoot();  
   player1.PrintPlayer();
+  
   if(player1.GetTripleShoot() || player1.GetBoomeranShoot()){ 
           
       player1.TimerPowerUps();
