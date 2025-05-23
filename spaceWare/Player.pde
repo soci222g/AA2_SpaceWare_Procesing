@@ -25,7 +25,7 @@ class Player {
   boolean tripleShotActive;
   boolean boomeranShoot;
   
-  PImage nave;
+  PImage navePJ;
   
   Player (float x, float y, float speed, float max_S, float Rotate_speed, float MaxRotationSpeed, PImage img) {  
    PosX = x;
@@ -41,7 +41,7 @@ class Player {
    Max_rotation_Speed = MaxRotationSpeed;
    squareLenght = 40;
     
-    nave = img;
+    navePJ = img;
     
 
     
@@ -87,7 +87,7 @@ class Player {
           //rectMode(CENTER);
           //square(0, 0, squareLenght);
           imageMode(CENTER);
-          image(nave, 0,0,squareLenght,squareLenght);
+          image(navePJ, 0,0,squareLenght,squareLenght);
         
         PosX = modelX(0,0,0);
         PosY = modelY(0,0,0);
@@ -194,11 +194,15 @@ void PlayerBorders() { // Movimiento del PJ
     if(NumPower == 0){
       tripleShotActive = true;
       currentTimePowerUp = timerPowerUp;
+      activeLutPW = true;
+      LUT_PW(navePJ); //Crec que aqui esta bé
 
     }
     if(NumPower == 1){
         boomeranShoot = true;
         currentTimePowerUp = timerPowerUp;
+        activeLutPW = true;
+        
     }
   }
 
@@ -206,10 +210,11 @@ void TimerPowerUps(){
         if(tripleShotActive){
           if(currentTimePowerUp > 0){
             currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
-                  LUT_PW(); //Crec que aqui esta bé
+
           }
           else{
               tripleShotActive = false;
+              activeLutPW = false;
           }
           
         }
@@ -221,9 +226,15 @@ void TimerPowerUps(){
           }
             else{
                 boomeranShoot = false;
-            }  
+                activeLutPW = false;
+            } 
         }
-}
+        
+        if (activeLutPW){
+          LUT_PW(navePJ); //Crec que aqui esta bé
+        }
+          
+  }
 
   
 

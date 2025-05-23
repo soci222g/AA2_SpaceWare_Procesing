@@ -13,7 +13,8 @@ Score p2Score;
 ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
 
 PImage naveImgOriginal;
-PImage naveImg;
+PImage nave1Img;
+PImage nave2Img;
 
 //setup per la posicion de las curbas del boomerang para player 1 i player 2
 PVector p1[];
@@ -22,10 +23,10 @@ PVector p2[];
 void setup() {
   size(800, 800, P3D);
   naveImgOriginal = loadImage("nave.png");
-  naveImg = naveImgOriginal.copy(); // Usar copia para modificaciones
-
 player1 = new Player(200,400,0.01,2,0.1,2, naveImg); //new Player(200,400,0.01,1,0.1,1);
 player2 = new Player(600,400,0.01,2,0.1,2, naveImg); //new Player(600,400,0.01,1,0.1,1);
+  nave1Img = naveImgOriginal.copy(); // Usar copia para modificaciones
+  nave2Img = naveImgOriginal.copy(); // Usar copia para modificaciones
 p1Score = new Score();
 p2Score = new Score();
 
@@ -42,6 +43,10 @@ p2Score = new Score();
   p2[1] = new PVector(0, 0); // Y este es el P1
   p2[2] = new PVector(0, 0); // El P2
   p2[3] = new PVector(0, 0);
+
+  //Desactivar luts als principio
+  activeLutPW = false;
+  activeLutPJ = false;
 }
 
 

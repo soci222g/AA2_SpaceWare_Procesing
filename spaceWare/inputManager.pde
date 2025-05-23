@@ -56,7 +56,7 @@ void inputShootPlayer1(){
          BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
          BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() + 25));
          BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() - 25));
-         player1.activateColldown();
+         player1.activateColldown(); //<>//
     }
     else if(player1.GetBoomeranShoot()){
       
