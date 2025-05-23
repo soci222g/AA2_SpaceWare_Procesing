@@ -45,8 +45,9 @@ class RutaObstaculo{
       //4 equacions calculem les c's
       // c0 = p0
       // c1 = -5.5P0+9P1-4.5p2+p3
-      //c2 = p0*9 - p1*22.5 + p1 * 18 +
-      //
+      //c2 = p0*9 - p1*22.5 + p2 * 18 - p3 * -4,5
+      // c3 = -p0*4.5 + p1* 13.5 - P2*13.5 + p3*4.5
+      
   //c0
     coefs[0].x = puntos_de_ctrl[0].x;
     coefs[0].y = puntos_de_ctrl[0].y;
