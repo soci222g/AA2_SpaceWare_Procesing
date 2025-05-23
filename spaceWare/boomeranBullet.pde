@@ -18,7 +18,10 @@ float u;
   // Constructor
   boolean activeBullet;
   boolean Player1;
+  
+  
   boomerangRecorido(PVector[] p, boolean playerAsigne) {
+   //activamos balla i asignamos jugador
     activeBullet = true;
     Player1 = playerAsigne;
     
@@ -44,12 +47,13 @@ float u;
   
   // Metodos
   void calcular_coefs(){
-      //utilitzan la matriu de interpolacio
-      //4 equacions calculem les c's
-      // c0 = p0
-      // c1 = -5.5P0+9P1-4.5p2+p3
-      //c2 = p0*9 - p1*22.5 + p1 * 18 +
-      //
+
+    //matriz de bezier
+    //c0 = p0
+    //c1 = -3P0 + 3P1
+    //c2 = +3P0 - 6P1 + 3P2 
+    //c3 = -P0 + 3P1 - 3P2 + p3
+    
   //c0
     coefs[0].x = puntos_de_ctrl[0].x;
     coefs[0].y = puntos_de_ctrl[0].y;
@@ -72,10 +76,11 @@ float u;
   
   }
   
+  //fomrmula per pintar tota la curba (para hacer debug de estas)
   void pintar_curva(){
     float x,y;
   
-     // color de la curba
+     // pasar per tota la curba con un for
     for (float i = 0.0; i <1; i += 0.01){
         //calcular la x 
            x = coefs[0].x + coefs[1].x*i + coefs[2].x * (i * i) + coefs[3].x * (i * i * i);
