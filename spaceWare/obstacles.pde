@@ -125,21 +125,26 @@ float u;
   void calcula_nueva_posicion_Obstacle(){
     // Segun el estado, nos movemos por una u otra curva
     // Cuando el parametro "u" sea >= 1.0, toca cambiar de curva
+    
+    
+    // PNJ.x = Mi_primera_Curva.coefs[0].x + Mi_primera_Curva.coefs[1].x*u + Mi_primera_Curva.coefs[2].x * (u * u) + Mi_primera_Curva.coefs[3].x * (u * u * u);
+    //   PNJ.y = Mi_primera_Curva.coefs[0].y + Mi_primera_Curva.coefs[1].y*u + Mi_primera_Curva.coefs[2].y * (u * u) + Mi_primera_Curva.coefs[3].y * (u * u * u);
+    
     if (estado_boomerang==1){ // Estoy en p(u)
       obstaclePosition.x = coefs[0].x +
       coefs[1].x * u +
-      coefs[2].x * u * u +
-      coefs[3].x * u * u * u;
+      coefs[2].x * (u * u) +
+      coefs[3].x * (u * u * u);
       obstaclePosition.y =coefs[0].y +
       coefs[1].y * u +
-      coefs[2].y * u * u +
-      coefs[3].y * u * u * u;
+      coefs[2].y * (u * u) +
+      coefs[3].y * (u * u * u);
     } 
     // Control del parametro "u"
     u = u + 0.01;
     if (u >= 1.0){
-    
-     activeObstacle = false;
+      u = 0;
+     
     }
   }
 // Pintarlo
@@ -210,7 +215,7 @@ float u;
           
      if(Distanca <= spierRadius){
          activeObstacle = false;
-          p2Score.AddPlayerScore(-100);
+         p2Score.AddPlayerScore(-100);
      } 
      
 
