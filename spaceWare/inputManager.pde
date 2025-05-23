@@ -48,15 +48,15 @@ void inputRotateP1() {
 
 
 void inputShootPlayer1(){
-  if (keys[' '] && player1.Get_ShootColdown() <= 0) {
+  if (keys[' '] && player1.Get_CanShoot()) {
     if(player1.GetTripleShoot()){
          BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation()));
          BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() + 25));
          BulletPJ1.add(new bullet(true, player1.getX(), player1.getY(), player1.getCurrentRotation() - 25));
-         player1.activateColldown(); //<>// //<>//
+         player1.activateColldown(); //<>// //<>// //<>//
     }
     else if(player1.GetBoomeranShoot()){
-       //<>// //<>// //<>//
+       //<>// //<>// //<>// //<>//
         p1[0] = new PVector(player1.getX(), player1.getY()); // Este es el punto de ctrl P0
         //trnafomr para setear los puntos en funcion del player
        print(p1[0].x,",",p1[0].y, " ");
@@ -129,7 +129,7 @@ void inputRotateP2() {
 
 
 void inputShootPlayer2(){
-  if (keys[SHIFT] && player2.Get_ShootColdown() <= 0) {
+  if (keys[SHIFT] && player2.Get_CanShoot()) {
      if(player2.GetTripleShoot()){
          BulletPJ2.add(new bullet(false, player2.getX(), player2.getY(), player2.getCurrentRotation()));
          BulletPJ2.add(new bullet(false, player2.getX(), player2.getY(), player2.getCurrentRotation() + 25));

@@ -17,6 +17,9 @@ class Player {
   
   float shootColdown;
   float currentColdown;
+  float LastSavePlayerShoot;
+  boolean CanShoot;
+  
   
   int timerPowerUp;
   float currentTimePowerUp;
@@ -52,14 +55,16 @@ class Player {
     navePJ = img;
     navePJ_original = img.copy();
     
-    shootColdown = 10;
+    shootColdown = 4000;
     currentColdown = 0;
+    LastSavePlayerShoot = -4000;
+    CanShoot = true;
     
     tripleShotActive = false;
     boomeranShoot = false;
     invincibilityActive = false;
     
-    timerPowerUp = 10;
+    timerPowerUp = 4000;
     currentTimePowerUp = 0;
     
     
@@ -79,7 +84,7 @@ class Player {
   
   float Get_Current_Speed(){   return current_speed;}
   
-  float Get_ShootColdown(){ return currentColdown;}
+  boolean Get_CanShoot(){ return CanShoot;}
   
   boolean GetTripleShoot(){ return tripleShotActive;}
   boolean GetBoomeranShoot(){ return boomeranShoot;}
@@ -135,15 +140,30 @@ class Player {
      
 
   }
-  void activateColldown(){ currentColdown = shootColdown; }
+  void activateColldown(){ LastSavePlayerShoot = millis(); }
   
   //shoot coldown
   void ColldownShoot(){
-    
-      if(currentColdown >= 0){
-          currentColdown -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
-      }
+    currentColdown = millis() - LastSavePlayerShoot;
+      if(currentColdown > timerPowerUp){
+          CanShoot = true;
+        }
+        else{
+          CanShoot = false;
+        }
+         
   }
+  
+  /*
+  void ReActivateObstacle(){
+    currentTimerObstacle = millis() - SaveLastTimeObstacles;
+    if(currentTimerObstacle > TimeToRespawnAObstacle){
+      SaveLastTimeObstacles = millis();
+      activeObstacle = true;
+    }
+  
+  }
+  */
   
   //rotation
   
