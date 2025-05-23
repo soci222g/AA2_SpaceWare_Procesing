@@ -221,7 +221,7 @@ class obstaculo{
      if(Distanca <= spierRadius){
        
          p1Score.AddPlayerScore(-100);
-         
+         startFlashPlayer1();
          activeObstacle = false;
      } 
   }
@@ -256,7 +256,8 @@ class obstaculo{
     float Distanca = sqrt((ClosDisX*ClosDisX)+ (ClosDisY*ClosDisY));
           
      if(Distanca <= spierRadius){
-       p2Score.AddPlayerScore(-100);  
+       p2Score.AddPlayerScore(-100);
+       startFlashPlayer2();
        activeObstacle = false; 
      } 
       
