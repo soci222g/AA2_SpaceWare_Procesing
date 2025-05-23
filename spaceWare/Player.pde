@@ -266,7 +266,7 @@ void TimerPowerUps(){
 
           }
           else{
-          LUT_PW(navePJ, tipoLut); 
+            LUT_PW(navePJ, tipoLut); 
           }
                    
         }
@@ -278,7 +278,6 @@ void TimerPowerUps(){
            
                 boomeranShoot = false;
                 activeLutPW = false;
-                 //hem de normalitzar aixo (utilitzar funcio millis)
                
           }
             else{
@@ -292,9 +291,9 @@ void TimerPowerUps(){
            currentTimePowerUp = millis() - LastSavePlayerPowerUps;
           if(currentTimePowerUp > timerPowerUp){
                invincibilityActive = false;
-              
+               activeLutPW = false;
             } else {
-             LUT_PW(navePJ, tipoLut); 
+               LUT_PW(navePJ, tipoLut); 
             }
          }
         
