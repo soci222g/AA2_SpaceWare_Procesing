@@ -14,18 +14,24 @@ class bullet{
   
   int lifeTime;
   float currentLifeTime;
+  float saveSpawnTime;
+  
   int widthBullet;
   int heightBullet;
   
-  
+  //en funion de los elementos del jugaodr este endra una rotacion i una posicion especifica.
   bullet(boolean playerAsigne, float P_PosX, float P_PosY, float P_Rotation){
     isActive = true;
     Player1 = playerAsigne;
     PosX = P_PosX;
     PosY = P_PosY;
     Rotation = P_Rotation;
-    lifeTime = 10;
+    //timer bullet
+    lifeTime = 3000;
     currentLifeTime = 0;
+    saveSpawnTime = millis();
+
+    
     widthBullet = 5;
     heightBullet = 15;
     FlySpeed = 4;
@@ -33,7 +39,7 @@ class bullet{
 //bullets geters
 boolean GetisActive(){return isActive; }
  
-  //
+  // dibujamos la balla sigiendo usando los trnasforms.(voviendo la balla a donde esta, rodandola, moviendo hacia adelante i guadnado la nueva posicion.)
   
   void PrintBullet(){
       pushMatrix();
@@ -65,12 +71,11 @@ boolean GetisActive(){return isActive; }
   
 //lifetime Bullets  
 void SetCurrentLife(){
-  if(currentLifeTime < lifeTime){
-      currentLifeTime += 0.1;
+  currentLifeTime = millis() - saveSpawnTime;
+  if(currentLifeTime > lifeTime){
+       isActive = false;
   }
-  else{
-    isActive = false;
-  }
+
 }
  
   
@@ -95,12 +100,14 @@ void SetCurrentLife(){
         PosY = height + 10;
     }
   }
+  
+  
 void SeeCollision(){
     //pillamos la pas paredes de las ballas
     PVector Min_Bullet = new PVector(PosX+widthBullet*0.5,PosY+heightBullet*0.5);
     PVector Max_Bullet = new PVector(PosX+widthBullet*0.5,PosY+heightBullet*0.5); 
   
-    //pillamos uno de los dos player en funcion de quien ha disparado
+    //cogemos la posicines de las 4 paredes de un juegador, en funcion esto de quien a disparado la balla 
     
     PVector Min_Player;
     PVector Max_Player;
@@ -114,30 +121,33 @@ void SeeCollision(){
       Max_Player = new PVector(player1.getX()+player2.GetSquareLengt()*0.5, player1.getY()+player2.GetSquareLengt()*0.5);
     }
 
-    if((Max_Bullet.x < Min_Player.x)||(Max_Bullet.y < Min_Player.y)||(Max_Player.x< Min_Bullet.x) || (Max_Player.y< Min_Bullet.y)){ //no collision
-   
-    }
-    else{ //si collision
-     if (Player1) {
-    if (player2.GetInvincibility()) {
-      // Si el jugador 2 está invencible, no hacer nada
-      println("Player 2 is invincible. Bullet has no effect.");
+//comrobamos los casos donde no hay collison (en estos no pasa nada)
+      if((Max_Bullet.x < Min_Player.x)||(Max_Bullet.y < Min_Player.y)||(Max_Player.x< Min_Bullet.x) || (Max_Player.y< Min_Bullet.y)){ //no collision
+     
+      }
+      else{ //si collision
+       if (Player1) {
+      if (player2.GetInvincibility()) {
+        // Si el jugador 2 está invencible, no hacer nada
+        println("Player 2 is invincible. Bullet has no effect.");
+        isActive = false;
+      } else {
+        p1Score.AddPlayerScore(100);
+        startFlashPlayer2();
+        isActive = false;
+      }
     } else {
-      p1Score.AddPlayerScore(100);
-      startFlashPlayer2();
-      isActive = false;
-    }
-  } else {
-    if (player1.GetInvincibility()) {
-      // Si el jugador 1 está invencible, no hacer nada
-      println("Player 1 is invincible. Bullet has no effect.");
-    } else {
-      p2Score.AddPlayerScore(100);
-      startFlashPlayer1();
-      isActive = false;
+      if (player1.GetInvincibility()) {
+        // Si el jugador 1 está invencible, no hacer nada
+        println("Player 1 is invincible. Bullet has no effect.");
+        isActive = false;
+      } else {
+        p2Score.AddPlayerScore(100);
+        startFlashPlayer1();
+        isActive = false;
+      }
     }
   }
-}
 }
 
 

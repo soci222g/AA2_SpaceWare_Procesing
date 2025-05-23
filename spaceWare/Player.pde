@@ -53,22 +53,27 @@ class Player {
    Max_rotation_Speed = MaxRotationSpeed;
    squareLenght = 40;
     
+    //imagne player
     navePJ = img;
     navePJ_original = img.copy();
     
+    //colldown shoot
     shootColdown = 4000;
     currentColdown = 0;
     LastSavePlayerShoot = -4000;
     CanShoot = true;
     
+    //condocionales power up
     tripleShotActive = false;
     boomeranShoot = false;
     invincibilityActive = false;
     
+    //timer power up
     timerPowerUp = 10000;
     currentTimePowerUp = 0;
     LastSavePlayerPowerUps = 0;
     
+    //posicion inical texto
     PositonText = new PVector(x - 50,y - 50);
     TextoDistancia = 50;
     TextoSpeed = 0.1;
@@ -93,7 +98,7 @@ class Player {
   
   int GetSquareLengt(){return squareLenght;}
   
-  //print
+  //print mediante transforma contando la speed del jugador
     void PrintPlayer(){
       pushMatrix();
       
@@ -123,6 +128,7 @@ class Player {
       
     }
 
+//sistema de anyadir speed de forma progresiva
   void addSpeed(){
       if (current_speed < max_Speed){
         current_speed += Speed; 
@@ -130,6 +136,7 @@ class Player {
       
     
   }
+  //reduccion de speed de forma prograsiva
   void ReduceSpeed(){
    
     if(current_speed  > 0.1){
@@ -141,6 +148,7 @@ class Player {
      
 
   }
+  //colldown del disparo meditante millis
   void activateColldown(){ LastSavePlayerShoot = millis(); }
   
   //shoot coldown
@@ -157,7 +165,7 @@ class Player {
   
 
   
-  //rotation
+  //rotation progresiva, misma logica que la speed pero rotando (no tiene drag final para mayor control)
   
   void RotateLeft(){
     
@@ -180,13 +188,15 @@ class Player {
   void RotateRight(){
     
  
-    
+ //miramos si la totacion ha alcanzado la velocidad maxima, si no sige hacelerando   
     if(Current_rotate_speed < Max_rotation_Speed){
       
       Current_rotate_speed += Rotation; 
     }
     
       Current_rotate += Current_rotate_speed;
+      
+      //condicional para que no se aumente el int de forma infinita de la rotacion.
      if(Current_rotate >= 360){
       Current_rotate = 0;
       }
@@ -197,6 +207,8 @@ class Player {
 void stopRotation(){
   Current_rotate_speed = 0;
 }
+
+//si se sobrepaas del obrde tp al otro lado
 
 void PlayerBorders() { // Movimiento del PJ
  
@@ -242,17 +254,7 @@ void PlayerBorders() { // Movimiento del PJ
 
 String tipoLut = "";
 
-  /*
-  void ReActivateObstacle(){
-    currentTimerObstacle = millis() - SaveLastTimeObstacles;
-    if(currentTimerObstacle > TimeToRespawnAObstacle){
-      SaveLastTimeObstacles = millis();
-      activeObstacle = true;
-    }
-  
-  }
-  */
-
+//timer de los power ups, pro millis();
 void TimerPowerUps(){
         if(tripleShotActive){
           tipoLut = "red";
@@ -305,15 +307,15 @@ void TimerPowerUps(){
           
   }
 
-
+//sistam de padfinding del texto con la puntuacion.
 void FollowText(int Score){
 
-  //padfinding Text
+  //generamos un vector que apunte a donde esta la jugador (restando posicion de inicio - posicion final)
   PVector CallDistance = new PVector(PositonText.x - PosX, PositonText.y - PosY);
   
   //normalize il vector de la distancia entre el text i el player;
    float Distance_Normal = sqrt(CallDistance.x*CallDistance.x + CallDistance.y * CallDistance.y);
-
+//en caso de que el texto este mas lejos de la distancia despaza el texto.
   if(TextoDistancia <= Distance_Normal){
     //formular del padfinding = (1-Alfa) * posicionA + posicionB * alfa;
     PositonText.x = (1-TextoSpeed) *  PositonText.x + PosX * TextoSpeed;

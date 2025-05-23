@@ -8,7 +8,7 @@ class Score {
   
   int GetScore(){ return playerScore;}
   
-  
+  //modificamos la score segun el valor que nos pasan.
   void AddPlayerScore( int score){
     
     
@@ -16,7 +16,7 @@ class Score {
     
     
       
-     println("Puntos actuales: " + playerScore);
+    
   }
   
   
