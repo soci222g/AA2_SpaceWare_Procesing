@@ -17,9 +17,13 @@ class Player {
   
   float shootColdown;
   float currentColdown;
+  float LastSavePlayerShoot;
+  boolean CanShoot;
+  
   
   int timerPowerUp;
   float currentTimePowerUp;
+  float LastSavePlayerPowerUps;
   
   //powerUpsTrigers
   boolean tripleShotActive;
@@ -52,16 +56,18 @@ class Player {
     navePJ = img;
     navePJ_original = img.copy();
     
-    shootColdown = 10;
+    shootColdown = 4000;
     currentColdown = 0;
+    LastSavePlayerShoot = -4000;
+    CanShoot = true;
     
     tripleShotActive = false;
     boomeranShoot = false;
     invincibilityActive = false;
     
-    timerPowerUp = 10;
+    timerPowerUp = 10000;
     currentTimePowerUp = 0;
-    
+    LastSavePlayerPowerUps = 0;
     
     PositonText = new PVector(x - 50,y - 50);
     TextoDistancia = 50;
@@ -79,7 +85,7 @@ class Player {
   
   float Get_Current_Speed(){   return current_speed;}
   
-  float Get_ShootColdown(){ return currentColdown;}
+  boolean Get_CanShoot(){ return CanShoot;}
   
   boolean GetTripleShoot(){ return tripleShotActive;}
   boolean GetBoomeranShoot(){ return boomeranShoot;}
@@ -135,15 +141,21 @@ class Player {
      
 
   }
-  void activateColldown(){ currentColdown = shootColdown; }
+  void activateColldown(){ LastSavePlayerShoot = millis(); }
   
   //shoot coldown
   void ColldownShoot(){
-    
-      if(currentColdown >= 0){
-          currentColdown -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
-      }
+    currentColdown = millis() - LastSavePlayerShoot;
+      if(currentColdown > timerPowerUp){
+          CanShoot = true;
+        }
+        else{
+          CanShoot = false;
+        }
+         
   }
+  
+
   
   //rotation
   
@@ -208,60 +220,79 @@ void PlayerBorders() { // Movimiento del PJ
   void activate_powerUp(int NumPower){
     if(NumPower == 0){
       tripleShotActive = true;
-      currentTimePowerUp = timerPowerUp;
+      //currentTimePowerUp = timerPowerUp;
+      LastSavePlayerPowerUps = millis();
       activeLutPW = true;
 
     }
     if(NumPower == 1){
         boomeranShoot = true;
-        currentTimePowerUp = timerPowerUp;
+         //currentTimePowerUp = timerPowerUp;
+        LastSavePlayerPowerUps = millis();
         activeLutPW = true;  
     }
     if(NumPower == 2){
       println("AZULLLLL");
       invincibilityActive = true;
-      currentTimePowerUp = timerPowerUp;
+      //currentTimePowerUp = timerPowerUp;
+      LastSavePlayerPowerUps = millis();
       activeLutPW = true;
     }
   }
 
 String tipoLut = "";
 
+  /*
+  void ReActivateObstacle(){
+    currentTimerObstacle = millis() - SaveLastTimeObstacles;
+    if(currentTimerObstacle > TimeToRespawnAObstacle){
+      SaveLastTimeObstacles = millis();
+      activeObstacle = true;
+    }
+  
+  }
+  */
+
 void TimerPowerUps(){
         if(tripleShotActive){
           tipoLut = "red";
-
-          if(currentTimePowerUp > 0){
-            currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
+            
+            currentTimePowerUp = millis() - LastSavePlayerPowerUps;
+          if(currentTimePowerUp > timerPowerUp){
+             tripleShotActive = false;
+              activeLutPW = false;  //hem de normalitzar aixo (utilitzar funcio millis)
 
           }
           else{
-              tripleShotActive = false;
-              activeLutPW = false;
+          LUT_PW(navePJ, tipoLut); 
           }
-          
+                   
         }
         if(boomeranShoot){
            tipoLut = "green";
-           if(currentTimePowerUp > 0){
-            
-              currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
-
-          }
-            else{
+          
+           currentTimePowerUp = millis() - LastSavePlayerPowerUps;
+          if(currentTimePowerUp > timerPowerUp){
+           
                 boomeranShoot = false;
                 activeLutPW = false;
+                 //hem de normalitzar aixo (utilitzar funcio millis)
+               
+          }
+            else{
+                LUT_PW(navePJ, tipoLut); 
             } 
-        }
+          }
+        
         
          if(invincibilityActive){
             tipoLut = "blue";
-            if(currentTimePowerUp > 0){
-              currentTimePowerUp -= 0.1;
-
+           currentTimePowerUp = millis() - LastSavePlayerPowerUps;
+          if(currentTimePowerUp > timerPowerUp){
+               invincibilityActive = false;
+              
             } else {
-              invincibilityActive = false;
-              activeLutPW = false;
+             LUT_PW(navePJ, tipoLut); 
             }
          }
         
@@ -273,6 +304,7 @@ void TimerPowerUps(){
 
           
   }
+
 
 void FollowText(int Score){
 
