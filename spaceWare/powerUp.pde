@@ -6,7 +6,7 @@ float currentTimerPower;
 
 class PowerUp{
   
-  int numPowerUp; //0 = tripleShoot, 1 = boomerang, 2 = per definir
+  int numPowerUp; //0 = tripleShoot, 1 = boomerang, 2 = Invencibilitat
   float posX;
   float posY;
   
@@ -18,7 +18,7 @@ class PowerUp{
     posY = random(height);
     isActive = true;
     spierRadius = 10;
-    numPowerUp = int(random(0,2)); //poner random qunado programado los otros
+    numPowerUp = int(2); //poner random qunado programado los otros
   }
   
   boolean GetIsActive() {return isActive;}
@@ -32,9 +32,11 @@ class PowerUp{
        fill(0,255,0);
        ellipse(posX,posY,spierRadius,spierRadius);
     }
+    else if (numPowerUp == 2){
+      fill(0,0,255);
+       ellipse(posX,posY,spierRadius,spierRadius);
+    }
     
-  
-  
   }
   
   void seePlayer1Collide(){

@@ -24,6 +24,7 @@ class Player {
   //powerUpsTrigers
   boolean tripleShotActive;
   boolean boomeranShoot;
+  boolean invincibilityActive;
   
   PImage navePJ;
   PImage navePJ_original;
@@ -51,6 +52,7 @@ class Player {
     
     tripleShotActive = false;
     boomeranShoot = false;
+    invincibilityActive = false;
     
     timerPowerUp = 10;
     currentTimePowerUp = 0;
@@ -70,6 +72,7 @@ class Player {
   
   boolean GetTripleShoot(){ return tripleShotActive;}
   boolean GetBoomeranShoot(){ return boomeranShoot;}
+  boolean GetInvincibility() { return invincibilityActive;}
   
   int GetSquareLengt(){return squareLenght;}
   
@@ -196,14 +199,18 @@ void PlayerBorders() { // Movimiento del PJ
       tripleShotActive = true;
       currentTimePowerUp = timerPowerUp;
       activeLutPW = true;
-      LUT_PW(navePJ, tipoLut); //Crec que aqui esta bé
 
     }
     if(NumPower == 1){
         boomeranShoot = true;
         currentTimePowerUp = timerPowerUp;
-        activeLutPW = true;
-        
+        activeLutPW = true;  
+    }
+    if(NumPower == 2){
+      println("AZULLLLL");
+      invincibilityActive = true;
+      currentTimePowerUp = timerPowerUp;
+      activeLutPW = true;
     }
   }
 
@@ -235,6 +242,17 @@ void TimerPowerUps(){
                 activeLutPW = false;
             } 
         }
+        
+         if(invincibilityActive){
+            println("AZULLLLL");
+            tipoLut = "blue";
+            if(currentTimePowerUp > 0){
+              currentTimePowerUp -= 0.1;
+              activeLutPW = true;
+            } else {
+              invincibilityActive = false;
+            }
+         }
         
       if (activeLutPW) {
         applyLUTToPlayer(this, tipoLut);  // Aplica LUT a copia segura
