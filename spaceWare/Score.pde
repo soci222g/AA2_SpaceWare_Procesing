@@ -4,6 +4,11 @@ class Score {
   //int p2Score = 0;
   
   
+  //geter
+  
+  int GetScore(){ return playerScore;}
+  
+  
   void AddPlayerScore( int score){
     
     
@@ -13,4 +18,6 @@ class Score {
       
      println("Puntos actuales: " + playerScore);
   }
+  
+  
 }

@@ -17,7 +17,7 @@ class PowerUp{
     posX = random(width);
     posY = random(height);
     isActive = true;
-    spierRadius = 10;
+    spierRadius = 20;
     numPowerUp = int(2); //poner random qunado programado los otros
   }
   

@@ -128,6 +128,7 @@ Obstaculo1.ClaculaPositionObstaculo(0.005);
     //logica interna player
   player1.ColldownShoot();  
   player1.PrintPlayer();
+  player1.FollowText(p1Score.GetScore());
   
   if(player1.GetTripleShoot() || player1.GetBoomeranShoot() ||player1.GetInvincibility()){ 
           
@@ -154,7 +155,7 @@ Obstaculo1.ClaculaPositionObstaculo(0.005);
   
   player2.ColldownShoot();  
   player2.PrintPlayer();
-
+  player2.FollowText(p2Score.GetScore());
    if(player2.GetTripleShoot() || player2.GetBoomeranShoot()){ 
       player2.TimerPowerUps();
   }

@@ -29,6 +29,11 @@ class Player {
   PImage navePJ;
   PImage navePJ_original;
   
+  PVector PositonText;
+  int TextoDistancia;
+  float TextoSpeed;
+  
+  
   Player (float x, float y, float speed, float max_S, float Rotate_speed, float MaxRotationSpeed, PImage img) {  
     
    PosX = x;
@@ -56,6 +61,12 @@ class Player {
     
     timerPowerUp = 10;
     currentTimePowerUp = 0;
+    
+    
+    PositonText = new PVector(x,y - 50);
+    TextoDistancia = 50;
+    TextoSpeed = 0.1;
+    
   } 
   
   
@@ -262,6 +273,29 @@ void TimerPowerUps(){
 
           
   }
+
+void FollowText(int Score){
+
+  //padfinding Text
+  PVector CallDistance = new PVector(PositonText.x - PosX, PositonText.y - PosY);
+  
+  //normalize il vector de la distancia entre el text i el player;
+   float Distance_Normal = sqrt(CallDistance.x*CallDistance.x + CallDistance.y * CallDistance.y);
+
+  if(TextoDistancia <= Distance_Normal){
+    //formular del padfinding = (1-Alfa) * posicionA + posicionB * alfa;
+    PositonText.x = (1-TextoSpeed) *  PositonText.x + PosX * TextoSpeed;
+    PositonText.y = (1-TextoSpeed) *  PositonText.y + PosY * TextoSpeed;
+  }
+  fill(0, 255, 255);
+  textSize(12);
+  text("Puntuacion: " + Score,PositonText.x, PositonText.y);
+
+  
+}
+
+  
+
 }
  
     
