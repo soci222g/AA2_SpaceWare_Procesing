@@ -1,44 +1,44 @@
 
 
+RutaObstaculo Mi_primera_Curva;
+RutaObstaculo Mi_segunda_Curva;
+RutaObstaculo Mi_tercera_Curva;
+RutaObstaculo Mi_quarta_Curva;
 
-class obsatclaCurba{
+obstaculo PNJ1;
+obstaculo PNJ2;
+obstaculo PNJ3;
+obstaculo PNJ4;
 
-PVector obstaclePosition;
-int estado_boomerang; 
-float u;
- int spierRadius;
+
+//obstaculo rutacio
+class RutaObstaculo{
+
+  PVector[] puntos_de_ctrl; // Las P
+  PVector[] coefs; //las C
   
-  PVector[] puntos_de_ctrl;
-  PVector[] coefs;
-  // Constructor
+  int spierRadius;
   boolean activeObstacle;
- 
-  obsatclaCurba(PVector[] p, int radisuSphier) {
-    activeObstacle = true;
   
-    
-     obstaclePosition = new PVector(0,0);
-     estado_boomerang=1; 
-     u=0.01;
-    spierRadius = radisuSphier;
    
-    // Reservamos memoria
+  
+  RutaObstaculo(PVector[] p){
     puntos_de_ctrl = new PVector[4];
     coefs = new PVector[4];
-    // Inicializamos
-    for (int i=0; i<4; i++) {
-      puntos_de_ctrl[i]=new PVector(0.0, 0.0);
-      coefs[i]=new PVector(0.0, 0.0);
-      // Copiamos los puntos recibidos
-      puntos_de_ctrl[i]=p[i];
+    
+
+    
+    for(int i = 0; i < 4; i++){
+      puntos_de_ctrl[i] = new PVector(0.0,0.0);
+      coefs[i] = new PVector(0.0,0.0);
+      
+      puntos_de_ctrl[i] = p[i];
     }
+    calcular_coefs();
+   
   }
-  //geter
-  boolean GetActive(){return activeObstacle;}
-  
-  // Metodos
   void calcular_coefs(){
-       //utilitzan la matriu de interpolacio
+      //utilitzan la matriu de interpolacio
       //4 equacions calculem les c's
       // c0 = p0
       // c1 = -5.5P0+9P1-4.5p2+p3
@@ -83,9 +83,7 @@ float u;
      coefs[3].y = -4.5*puntos_de_ctrl[0].y 
         +13.5*puntos_de_ctrl[1].y
         -13.5*puntos_de_ctrl[2].y 
-        +4.5*puntos_de_ctrl[3].y ;   
-
-  
+        +4.5*puntos_de_ctrl[3].y ;     
   }
   
   void pintar_curva(){
@@ -102,56 +100,117 @@ float u;
         //pintar un punto en esa cordenada
          point(x,y);
     }
-     strokeWeight(10); // pixeles de grosor
-    stroke(255,0,0); 
-  for(int i  = 0; i < 4; i++){
-   point(puntos_de_ctrl[i].x,puntos_de_ctrl[i].y); 
   }
-    
-    
-  }
-
-  void pintar_puntos_de_ctrl() {
-    strokeWeight(15.0);
-    stroke(255, 0, 0);
-    for (int i=0; i<4; i++) {
-      point(puntos_de_ctrl[i].x, puntos_de_ctrl[i].y);
+  
+  void PintarPuntosControl(){
+      strokeWeight(10); // pixeles de grosor
+      stroke(255,0,0); 
+      for(int i  = 0; i < 4; i++){
+         point(puntos_de_ctrl[i].x,puntos_de_ctrl[i].y); 
     }
   }
+    
+  
+}
 
+//clase obstaculo fisico
+class obstaculo{
+  PVector PNJ;
+  int State_PNJ;
+  float u; 
 
-// Funciones
-// Posicionar al PNJ
-  void calcula_nueva_posicion_Obstacle(){
-    // Segun el estado, nos movemos por una u otra curva
-    // Cuando el parametro "u" sea >= 1.0, toca cambiar de curva
+  int spierRadius;
+  boolean activeObstacle;
+
+  obstaculo(int StageStart){
+     PNJ = new PVector(0,0);
+     State_PNJ = StageStart;
+     u=0.0; 
+      spierRadius = 30;
+      activeObstacle = true;
+  }
+    
+    void ClaculaPositionPNJ( float speed, RutaObstaculo[4] ruta){
+    //segons el estat i la U ens movem per les curvas
     
     
-    // PNJ.x = Mi_primera_Curva.coefs[0].x + Mi_primera_Curva.coefs[1].x*u + Mi_primera_Curva.coefs[2].x * (u * u) + Mi_primera_Curva.coefs[3].x * (u * u * u);
-    //   PNJ.y = Mi_primera_Curva.coefs[0].y + Mi_primera_Curva.coefs[1].y*u + Mi_primera_Curva.coefs[2].y * (u * u) + Mi_primera_Curva.coefs[3].y * (u * u * u);
     
-    if (estado_boomerang==1){ // Estoy en p(u)
-      obstaclePosition.x = coefs[0].x +
-      coefs[1].x * u +
-      coefs[2].x * (u * u) +
-      coefs[3].x * (u * u * u);
-      obstaclePosition.y =coefs[0].y +
-      coefs[1].y * u +
-      coefs[2].y * (u * u) +
-      coefs[3].y * (u * u * u);
-    } 
-    // Control del parametro "u"
-    u = u + 0.01;
-    if (u >= 1.0){
-      u = 0;
-     
+    switch (State_PNJ){
+      case 1:
+       PNJ.x = ruta[0].coefs[0].x + ruta[0].coefs[1].x*u + ruta[0].coefs[2].x * (u * u) + ruta[0].coefs[3].x * (u * u * u);
+       PNJ.y = rut[0].coefs[0].y + ruta[0].coefs[1].y*u + ruta[0].coefs[2].y * (u * u) + ruta[0].coefs[3].y * (u * u * u);
+        break;
+      case 2:
+       PNJ.x = ruta[1].coefs[0].x + ruta[1].coefs[1].x*u + ruta[1].coefs[2].x * (u * u) +  ruta[1].coefs[3].x * (u * u * u);
+       PNJ.y =  ruta[1].coefs[0].y +  ruta[1].coefs[1].y*u +  ruta[1].coefs[2].y * (u * u) +  ruta[1].coefs[3].y * (u * u * u);
+        break;
+      case 3:
+       PNJ.x =  ruta[2].coefs[0].x + Mi_tercera_Curva.coefs[1].x*u + Mi_tercera_Curva.coefs[2].x * (u * u) + ruta[2].coefs[3].x * (u * u * u);
+       PNJ.y = ruta[2].coefs[0].y + ruta[2].coefs[1].y*u + ruta[2].coefs[2].y * (u * u) + ruta[2].coefs[3].y * (u * u * u);
+        break;
+      case 4:
+       PNJ.x = ruta[3].coefs[0].x + ruta[3].coefs[1].x*u + ruta[3].coefs[2].x * (u * u) + ruta[3].coefs[3].x * (u * u * u);
+       PNJ.y = ruta[3].coefs[0].y + ruta[3].coefs[1].y*u + ruta[3].coefs[2].y * (u * u) + ruta[3].coefs[3].y * (u * u * u);
+        break;
     }
+      
+    
+        if(u < 1){
+        u += speed;
+        }
+        else if(u >= 1){
+          
+          if(State_PNJ == 4){
+              State_PNJ = 1;
+            }
+          else{
+              State_PNJ++;
+            }
+            u = 0;
+          
+        }
+        
   }
-// Pintarlo
-  void print_Bullet(){
-            fill(255,255,0);
-            ellipse(obstaclePosition.x,obstaclePosition.y,spierRadius,spierRadius);
+  
+  void ClaculaPositionPNJPistaModolar(float speed, RutaObstaculo[] arrayCorva){
+    //segons el estat i la U ens movem per les curvas
+    
+    
+    for (int i = 0; i < arrayCorva.length; i++){
+        PNJ.x = arrayCorva[i].coefs[0].x + arrayCorva[i].coefs[1].x*u + arrayCorva[i].coefs[2].x * (u * u) + arrayCorva[i].coefs[3].x * (u * u * u);
+        PNJ.y = arrayCorva[i].coefs[0].y + arrayCorva[i].coefs[1].y*u + arrayCorva[i].coefs[2].y * (u * u) + arrayCorva[i].coefs[3].y * (u * u * u);
+    
+    
+     if(u < 1){
+        u += speed;
+        break;
+        }
+        else if(u >= 1){
+          
+          if(State_PNJ ==  arrayCorva.length){
+              i = 0;
+            }
+          else{
+              i++;
+              
+            }
+            u = 0;
+            break;
+        }
+    }
+      
+    
+    
+        
   }
+
+  void PrintaPNJ(){
+      strokeWeight(50); // pixeles de grosor
+    stroke(0,255,0); 
+    ellipse(PNJ.x,PNJ.y, spierRadius, spierRadius);
+  }
+  
+  
   
   void SeeCollision(){
     //pillamos la pas paredes de las ballas
@@ -159,26 +218,26 @@ float u;
     float base_position_x_PJ1 = player1.getX() - player1.getSquareLenght() * 0.5;
     float base_position_y_PJ1 =  player1.getY() - player1.getSquareLenght() * 0.5;
     //esfera
-    float posPowerX = obstaclePosition.x;
-    float posPowerY = obstaclePosition.y;
+    float posPowerX = PNJ.x;
+    float posPowerY = PNJ.y;
     
     //quina de les 2 X del player esta mes aprop el collider
-    if(obstaclePosition.x < base_position_x_PJ1){
+    if(PNJ.x < base_position_x_PJ1){
         posPowerX = base_position_x_PJ1;
     }
-    else if(obstaclePosition.x > (base_position_x_PJ1 + player1.getSquareLenght())){
+    else if(PNJ.x > (base_position_x_PJ1 + player1.getSquareLenght())){
       posPowerX = base_position_x_PJ1 + player1.getSquareLenght();
     }
     
-    if(obstaclePosition.y < base_position_y_PJ1){
+    if(PNJ.y < base_position_y_PJ1){
         posPowerY = base_position_y_PJ1;
     }
-    else if(obstaclePosition.y > (base_position_y_PJ1 + player1.getSquareLenght())){
+    else if(PNJ.y > (base_position_y_PJ1 + player1.getSquareLenght())){
       posPowerY = base_position_y_PJ1 + player1.getSquareLenght();
     }
     
-    float ClosDisX = obstaclePosition.x - posPowerX;
-    float ClosDisY = obstaclePosition.y - posPowerY;
+    float ClosDisX = PNJ.x - posPowerX;
+    float ClosDisY = PNJ.y - posPowerY;
     
      float Distanca = sqrt((ClosDisX*ClosDisX)+ (ClosDisY*ClosDisY));
      
@@ -194,22 +253,22 @@ float u;
     //esfera
        
     //quina de les 2 X del player esta mes aprop el collider
-    if(obstaclePosition.x < base_position_x_PJ2){
+    if(PNJ.x < base_position_x_PJ2){
         posPowerX = base_position_x_PJ2;
     }
-    else if(obstaclePosition.x > (base_position_x_PJ2 + player2.getSquareLenght())){
+    else if(PNJ.x > (base_position_x_PJ2 + player2.getSquareLenght())){
       posPowerX = base_position_x_PJ2 + player2.getSquareLenght();
     }
     
-    if(obstaclePosition.y < base_position_y_PJ2){
+    if(PNJ.y < base_position_y_PJ2){
         posPowerY = base_position_y_PJ2;
     }
-    else if(obstaclePosition.y > (base_position_y_PJ2 + player2.getSquareLenght())){
+    else if(PNJ.y > (base_position_y_PJ2 + player2.getSquareLenght())){
       posPowerY = base_position_y_PJ2 + player2.getSquareLenght();
     }
    
-     ClosDisX = obstaclePosition.x - posPowerX;
-     ClosDisY = obstaclePosition.y - posPowerY;
+     ClosDisX = PNJ.x - posPowerX;
+     ClosDisY = PNJ.y - posPowerY;
     
      Distanca = sqrt((ClosDisX*ClosDisX)+ (ClosDisY*ClosDisY));
           
@@ -220,6 +279,6 @@ float u;
      
 
     
-}
-
+  }
+  
 }

@@ -5,7 +5,7 @@ boolean activeBullet;
   int widthBullet;
   int heightBullet;
 // Clases
-class curva {
+class boomerangRecorido {
   // Atributos
   
 PVector BulletBoomeranPos;
@@ -18,7 +18,7 @@ float u;
   // Constructor
   boolean activeBullet;
   boolean Player1;
-  curva(PVector[] p, boolean playerAsigne) {
+  boomerangRecorido(PVector[] p, boolean playerAsigne) {
     activeBullet = true;
     Player1 = playerAsigne;
     

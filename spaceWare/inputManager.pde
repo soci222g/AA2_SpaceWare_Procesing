@@ -89,7 +89,7 @@ void inputShootPlayer1(){
         
            print(p1[3].x,",", p1[3].y, " ");
          
-         curvaPJ1.add(new curva (p1,true));
+         curvaPJ1.add(new boomerangRecorido (p1,true));
          
          player1.activateColldown();
       }
@@ -166,7 +166,7 @@ void inputShootPlayer2(){
         p2[3] = new PVector(player2.getX(), player2.getY()); //el punto de control final
         
          
-         curvaPJ1.add(new curva (p2,true));
+         curvaPJ1.add(new boomerangRecorido (p2,true));
          
          player2.activateColldown();
       }

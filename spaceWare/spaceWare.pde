@@ -1,12 +1,12 @@
 
 Player player1;
 ArrayList<bullet> BulletPJ1 = new ArrayList<bullet>();
-ArrayList<curva> curvaPJ1 = new ArrayList<curva>();
+ArrayList<boomerangRecorido> curvaPJ1 = new ArrayList<boomerangRecorido>();
 Score p1Score;
 
 Player player2;
 ArrayList<bullet> BulletPJ2 = new ArrayList<bullet>();
-ArrayList<curva> curvaPJ2 = new ArrayList<curva>();
+ArrayList<boomerangRecorido> curvaPJ2 = new ArrayList<boomerangRecorido>();
 
 Score p2Score;
 

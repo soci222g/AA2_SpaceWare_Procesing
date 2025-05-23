@@ -29,6 +29,7 @@ class Player {
   PImage navePJ_original;
   
   Player (float x, float y, float speed, float max_S, float Rotate_speed, float MaxRotationSpeed, PImage img) {  
+    
    PosX = x;
    PosY = y;
    Rotation = Rotate_speed;
