@@ -35,12 +35,11 @@
 		cambio de lado de pantalla al sobrepasar los bordes, poder usar inputs simultaneos
 
 		Jordi
-		movimento, powerUps disparo triple y disparo búmerang, obstaculos, colisiones 
+		movimento, disparo , powerUps disparo triple y disparo búmerang, obstaculos, colisiones. 
 
 
 	 -Transformaciones Homogeneas:
-		El movimiento de los jugadores y el disparo funcionan con transforms, usando translate
-		para moverlos por la pantalla y rotate para rotar su orientación en esta.
+		El movimiento de los jugadores y el disparo funcionan con transforms, en primer lugar movemos a los elementos a la posición que se encuentra en el mundo, luego rotamos a estos en función de la angulación que esta marcada. por ultimo desplazamos hacia delante (X) a los elementos en función de que velocidad llevan. en el caso de la balla es constante i en el jugador tiene una aceleración i frenado. 
 
 	 -LUTs
 		Hemos usado LUTs en 2 casos distintos:
