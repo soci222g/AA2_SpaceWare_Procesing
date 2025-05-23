@@ -1,8 +1,8 @@
 boolean activeLutPW;
 boolean activeLutPJ;
 //geters
-boolean GetLUT_PW(){return activeLutPW;}
-boolean GetLUT_PJ(){return activeLutPJ;}
+//boolean GetLUT_PW(){return activeLutPW;}
+//boolean GetLUT_PJ(){return activeLutPJ;}
 //LUT 1
 void LUT_PW(PImage img) {
   println("Changed Color");

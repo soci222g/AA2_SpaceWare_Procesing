@@ -26,7 +26,6 @@ class Player {
   boolean boomeranShoot;
   
   PImage navePJ;
-  PImage navePJ_original;
   
   Player (float x, float y, float speed, float max_S, float Rotate_speed, float MaxRotationSpeed, PImage img) {  
    PosX = x;
@@ -43,7 +42,8 @@ class Player {
    squareLenght = 40;
     
     navePJ = img;
-    navePJ_original = img.copy();
+    
+
     
     shootColdown = 10;
     currentColdown = 0;
@@ -218,12 +218,10 @@ void TimerPowerUps(){
           }
           
         }
-        if(boomeranShoot){
+        else if(boomeranShoot){
            if(currentTimePowerUp > 0){
-            
               currentTimePowerUp -= 0.1; //hem de normalitzar aixo (utilitzar funcio seconds)
-               LUT_PW(navePJ); 
-          }
+            }
             else{
                 boomeranShoot = false;
                 activeLutPW = false;
@@ -233,7 +231,7 @@ void TimerPowerUps(){
         if (activeLutPW){
           LUT_PW(navePJ); //Crec que aqui esta bé
         } else {
-          navePJ = navePJ_original.copy();
+          
         }
           
   }
